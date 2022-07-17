@@ -18,6 +18,11 @@ const plugins = [
     }),
 ];
 
+const cssRegex = /\.css$/;
+const cssModuleRegex = /\.module\.css$/;
+const lessRegex = /\.less$/;
+const lessModuleRegex = /\.module\.less$/;
+
 const configuration: Configuration = {
     entry: './src/index.tsx',
     target: 'web',
@@ -45,6 +50,63 @@ const configuration: Configuration = {
                 test: /\.(j|t)sx?$/,
                 use: 'ts-loader',
                 exclude: /node_modules/,
+            },
+            {
+                test: cssRegex,
+                exclude: cssModuleRegex,
+                use: [
+                    'style-loader',
+                    {
+                        loader: 'css-loader',
+                    },
+                ],
+            },
+            {
+                test: lessRegex,
+                exclude: lessModuleRegex,
+                use: [
+                    'style-loader',
+                    {
+                        loader: 'css-loader',
+                        options: {
+                            modules: {
+                                mode: 'icss',
+                            },
+                        },
+                    },
+                    {
+                        loader: 'less-loader',
+                        options: {
+                            lessOptions: {
+                                javascriptEnabled: true,
+                            },
+                        },
+                    },
+                ],
+            },
+            {
+                test: lessModuleRegex,
+                use: [
+                    'style-loader',
+                    {
+                        loader: 'css-loader',
+                        options: {
+                            modules: {
+                                mode: 'local',
+                                localIdentName:
+                                    '[path]__[local]--[hash:base64:5]',
+                            },
+                        },
+                    },
+                    {
+                        loader: 'less-loader',
+                        options: {
+                            lessOptions: {
+                                javascriptEnabled: true,
+                            },
+                        },
+                    },
+                ],
             },
 
             {
