@@ -1,0 +1,12 @@
+{
+  "compilerOptions": {
+    "lib": ["DOM"],
+    "esModuleInterop": true,
+    "sourceMap": true,
+    "downlevelIteration": true,
+    "allowJs": true,
+    "jsx": "react-jsx",
+    "baseUrl": "./src",
+    "outDir": "./build"
+  }
+}
