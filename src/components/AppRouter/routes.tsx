@@ -1,6 +1,7 @@
 import { RouteObject, Navigate } from 'react-router';
 
 import { DashboardLayout } from 'components/DashboardLayout';
+import { CategoriesList } from 'pages/categories/CategoriesList';
 
 export const routes: RouteObject[] = [
     {
@@ -32,11 +33,23 @@ export const routes: RouteObject[] = [
                     },
                     {
                         path: 'settings',
-                        element: null,
                         children: [
                             {
+                                path: '',
+                                element: <Navigate to='categories' />,
+                            },
+                            {
                                 path: 'categories',
-                                element: null,
+                                children: [
+                                    {
+                                        path: '',
+                                        element: <Navigate to='list' />,
+                                    },
+                                    {
+                                        path: 'list',
+                                        element: <CategoriesList />,
+                                    },
+                                ],
                             },
                             {
                                 path: 'products',
