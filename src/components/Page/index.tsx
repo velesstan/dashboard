@@ -1,10 +1,16 @@
 import React from 'react';
 
 type TProps = {
-    children: React.ReactNode;
+    readonly title: string;
+    readonly children: React.ReactNode;
 };
 
 export const Page: React.FC<TProps> = props => {
-    const { children } = props;
-    return <React.Fragment>{children}</React.Fragment>;
+    const { title, children } = props;
+    return (
+        <React.Fragment>
+            <h2>{title}</h2>
+            {children}
+        </React.Fragment>
+    );
 };

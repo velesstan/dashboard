@@ -1,9 +1,9 @@
 import { combineReducers } from 'redux';
 
+import { categoriesApi } from './features/categories/api';
+
 const rootReducer = combineReducers({
-    app: () => {
-        return {};
-    },
+    [categoriesApi.reducerPath]: categoriesApi.reducer,
 });
 
 export default rootReducer;
