@@ -1,6 +1,9 @@
 import path from 'path';
 
-import { Configuration as WebpackConfiguration } from 'webpack';
+import {
+    Configuration as WebpackConfiguration,
+    EnvironmentPlugin,
+} from 'webpack';
 import { Configuration as WebpackDevServerConfiguration } from 'webpack-dev-server';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 
@@ -12,9 +15,14 @@ process.stdout.write(`Building for ${process.env.NODE_ENV}...\n`);
 
 const isProduction = process.env.NODE_ENV === 'production';
 
+const APP_API = 'http://localhost:3000/api';
+
 const plugins = [
     new HtmlWebpackPlugin({
         template: 'public/index.html',
+    }),
+    new EnvironmentPlugin({
+        APP_API,
     }),
 ];
 
