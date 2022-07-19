@@ -1,15 +1,21 @@
 import { combineReducers } from 'redux';
 
-import { categoriesApi } from './features/categories/api';
-import { holdersApi } from './features/holders/api';
-import { productsApi } from './features/products/api';
-import { usersApi } from './features/users/api';
+import {
+    usersApi,
+    categoriesApi,
+    productsApi,
+    holdersApi,
+    waybillsApi,
+    balancesApi,
+} from './features';
 
 const rootReducer = combineReducers({
     [categoriesApi.reducerPath]: categoriesApi.reducer,
     [productsApi.reducerPath]: productsApi.reducer,
     [usersApi.reducerPath]: usersApi.reducer,
     [holdersApi.reducerPath]: holdersApi.reducer,
+    [waybillsApi.reducerPath]: waybillsApi.reducer,
+    [balancesApi.reducerPath]: balancesApi.reducer,
 });
 
 export default rootReducer;

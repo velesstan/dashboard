@@ -1,5 +1,4 @@
-import type { DataColumn } from 'interfaces';
-import type { User } from 'store/features/users';
+import type { DataColumn, User } from 'interfaces';
 
 const columns: Array<DataColumn<User>> = [
     {

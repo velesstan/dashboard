@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { useGetCategoriesQuery } from 'store/features/categories';
+import { useGetCategoriesQuery } from 'store/features';
 import { Page } from 'components/Page';
 import { CommonTable } from 'components/CommonTable';
 

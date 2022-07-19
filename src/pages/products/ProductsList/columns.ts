@@ -1,5 +1,4 @@
-import type { DataColumn } from 'interfaces';
-import type { Product } from 'store/features/products';
+import type { DataColumn, Product } from 'interfaces';
 
 const columns: Array<DataColumn<Product>> = [
     {

@@ -1,5 +1,4 @@
-import type { DataColumn } from 'interfaces';
-import type { Category } from 'store/features/categories';
+import type { DataColumn, Category } from 'interfaces';
 
 const columns: Array<DataColumn<Category>> = [
     {

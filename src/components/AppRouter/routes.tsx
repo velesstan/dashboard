@@ -5,6 +5,8 @@ import { CategoriesList } from 'pages/categories/CategoriesList';
 import { ProductsList } from 'pages/products/ProductsList';
 import { UsersList } from 'pages/users/UsersList';
 import { HoldersList } from 'pages/holders/HoldersList';
+import { WaybillsList } from 'pages/waybills/WaybillsList';
+import { BalancesList } from 'pages/balances/BalancesList';
 
 export const routes: RouteObject[] = [
     {
@@ -28,11 +30,29 @@ export const routes: RouteObject[] = [
                     },
                     {
                         path: 'waybills',
-                        element: null,
+                        children: [
+                            {
+                                path: '',
+                                element: <Navigate to='list' />,
+                            },
+                            {
+                                path: 'list',
+                                element: <WaybillsList />,
+                            },
+                        ],
                     },
                     {
                         path: 'balances',
-                        element: null,
+                        children: [
+                            {
+                                path: '',
+                                element: <Navigate to='list' />,
+                            },
+                            {
+                                path: 'list',
+                                element: <BalancesList />,
+                            },
+                        ],
                     },
                     {
                         path: 'settings',

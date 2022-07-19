@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { useGetHoldersQuery } from 'store/features/holders';
+import { useGetHoldersQuery } from 'store/features';
 import { Page } from 'components/Page';
 import { CommonTable } from 'components/CommonTable';
 

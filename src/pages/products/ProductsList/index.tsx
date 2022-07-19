@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { useGetProductsQuery } from 'store/features/products';
+import { useGetProductsQuery } from 'store/features';
 import { Page } from 'components/Page';
 import { CommonTable } from 'components/CommonTable';
 

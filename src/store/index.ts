@@ -1,10 +1,14 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
 
-import { categoriesApi } from './features/categories/api';
-import { holdersApi } from './features/holders/api';
-import { productsApi } from './features/products/api';
-import { usersApi } from './features/users/api';
+import {
+    usersApi,
+    categoriesApi,
+    productsApi,
+    holdersApi,
+    waybillsApi,
+    balancesApi,
+} from './features';
 import rootReducer from './rootReducer';
 
 export const store = configureStore({
@@ -14,7 +18,9 @@ export const store = configureStore({
             categoriesApi.middleware,
             productsApi.middleware,
             usersApi.middleware,
-            holdersApi.middleware
+            holdersApi.middleware,
+            waybillsApi.middleware,
+            balancesApi.middleware
         );
     },
 });

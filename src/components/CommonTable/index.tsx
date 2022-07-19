@@ -10,13 +10,20 @@ const { Column } = Table;
 
 type TProps<T> = {
     readonly items: Array<Readonly<BaseEntity & T>>;
-    readonly columns: Array<DataColumn<BaseEntity & T>>;
+    readonly columns: Array<Omit<DataColumn<BaseEntity & T>, 'dataIndex'>>;
+    readonly hasDefaultColumns?: boolean;
     readonly loading: boolean;
     readonly refetch: () => void;
 };
 
 export const CommonTable = <T,>(props: TProps<T>) => {
-    const { items, columns, refetch, loading } = props;
+    const {
+        hasDefaultColumns = true,
+        items,
+        columns,
+        refetch,
+        loading,
+    } = props;
 
     return (
         <React.Fragment>
@@ -40,7 +47,7 @@ export const CommonTable = <T,>(props: TProps<T>) => {
                         dataSource={items}
                     >
                         {columns
-                            .concat(defaultColumns)
+                            .concat(hasDefaultColumns ? defaultColumns : [])
                             .map((columnProps, index) => (
                                 <Column key={index} {...columnProps} />
                             ))}

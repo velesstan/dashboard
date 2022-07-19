@@ -1,5 +1,4 @@
-import type { DataColumn } from 'interfaces';
-import type { Holder } from 'store/features/holders';
+import type { DataColumn, Holder } from 'interfaces';
 
 const columns: Array<DataColumn<Holder>> = [];
 
