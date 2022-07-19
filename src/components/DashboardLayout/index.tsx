@@ -13,7 +13,7 @@ export const DashboardLayout: React.FC = () => {
             <AppSidebar />
             <Layout>
                 <Appbar />
-                <Content>
+                <Content style={{ padding: 24 }}>
                     <Outlet />
                 </Content>
             </Layout>
