@@ -3,6 +3,7 @@ import { RouteObject, Navigate } from 'react-router';
 import { DashboardLayout } from 'components/DashboardLayout';
 import { CategoriesList } from 'pages/categories/CategoriesList';
 import { ProductsList } from 'pages/products/ProductsList';
+import { UsersList } from 'pages/users/UsersList';
 
 export const routes: RouteObject[] = [
     {
@@ -71,7 +72,16 @@ export const routes: RouteObject[] = [
                             },
                             {
                                 path: 'users',
-                                element: null,
+                                children: [
+                                    {
+                                        path: '',
+                                        element: <Navigate to='list' />,
+                                    },
+                                    {
+                                        path: 'list',
+                                        element: <UsersList />,
+                                    },
+                                ],
                             },
                         ],
                     },

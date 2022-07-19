@@ -3,6 +3,7 @@ import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
 
 import { categoriesApi } from './features/categories/api';
 import { productsApi } from './features/products/api';
+import { usersApi } from './features/users/api';
 import rootReducer from './rootReducer';
 
 export const store = configureStore({
@@ -10,7 +11,8 @@ export const store = configureStore({
     middleware: getDefaultMiddleware => {
         return getDefaultMiddleware().concat(
             categoriesApi.middleware,
-            productsApi.middleware
+            productsApi.middleware,
+            usersApi.middleware
         );
     },
 });
