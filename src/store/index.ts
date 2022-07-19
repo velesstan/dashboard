@@ -2,12 +2,16 @@ import { configureStore } from '@reduxjs/toolkit';
 import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
 
 import { categoriesApi } from './features/categories/api';
+import { productsApi } from './features/products/api';
 import rootReducer from './rootReducer';
 
 export const store = configureStore({
     reducer: rootReducer,
     middleware: getDefaultMiddleware => {
-        return getDefaultMiddleware().concat(categoriesApi.middleware);
+        return getDefaultMiddleware().concat(
+            categoriesApi.middleware,
+            productsApi.middleware
+        );
     },
 });
 
