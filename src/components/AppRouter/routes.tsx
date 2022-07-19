@@ -2,6 +2,7 @@ import { RouteObject, Navigate } from 'react-router';
 
 import { DashboardLayout } from 'components/DashboardLayout';
 import { CategoriesList } from 'pages/categories/CategoriesList';
+import { ProductsList } from 'pages/products/ProductsList';
 
 export const routes: RouteObject[] = [
     {
@@ -53,7 +54,16 @@ export const routes: RouteObject[] = [
                             },
                             {
                                 path: 'products',
-                                element: null,
+                                children: [
+                                    {
+                                        path: '',
+                                        element: <Navigate to='list' />,
+                                    },
+                                    {
+                                        path: 'list',
+                                        element: <ProductsList />,
+                                    },
+                                ],
                             },
                             {
                                 path: 'holders',
