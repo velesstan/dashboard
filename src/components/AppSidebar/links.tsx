@@ -26,7 +26,7 @@ const items: MenuItem[] = [
         key: 'balances',
     },
     {
-        label: <Link to='/dashboard/settings'>Настройки</Link>,
+        label: 'Настройки',
         icon: <SettingOutlined />,
         key: 'settings',
         children: [
