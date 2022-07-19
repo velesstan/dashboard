@@ -4,6 +4,7 @@ import { DashboardLayout } from 'components/DashboardLayout';
 import { CategoriesList } from 'pages/categories/CategoriesList';
 import { ProductsList } from 'pages/products/ProductsList';
 import { UsersList } from 'pages/users/UsersList';
+import { HoldersList } from 'pages/holders/HoldersList';
 
 export const routes: RouteObject[] = [
     {
@@ -68,7 +69,16 @@ export const routes: RouteObject[] = [
                             },
                             {
                                 path: 'holders',
-                                element: null,
+                                children: [
+                                    {
+                                        path: '',
+                                        element: <Navigate to='list' />,
+                                    },
+                                    {
+                                        path: 'list',
+                                        element: <HoldersList />,
+                                    },
+                                ],
                             },
                             {
                                 path: 'users',
