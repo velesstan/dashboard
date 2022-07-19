@@ -1,7 +1,6 @@
-export interface Category {
-    readonly _id: string;
+import { BaseEntity } from 'interfaces';
+
+export interface Category extends BaseEntity {
     readonly title: string;
     readonly priority: number;
-    readonly createdAt: Date;
-    readonly updatedAt: Date;
 }
