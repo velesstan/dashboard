@@ -5,8 +5,9 @@ import { PlusOutlined, SyncOutlined } from '@ant-design/icons';
 
 import { useGetCategoriesQuery } from 'store/features/categories';
 import { Page } from 'components/Page';
+import { CommonTable } from 'components/CommonTable';
 
-import { CategoriesTable } from './components/CategoriesTable';
+import columns from './columns';
 
 export const CategoriesList: React.FC = () => {
     const { data, isFetching, refetch } = useGetCategoriesQuery();
@@ -34,7 +35,11 @@ export const CategoriesList: React.FC = () => {
                 </Row>
                 <Row style={{ marginTop: 24 }}>
                     <Col sm={24}>
-                        <CategoriesTable items={data} loading={isFetching} />
+                        <CommonTable
+                            items={data}
+                            loading={isFetching}
+                            columns={columns}
+                        />
                     </Col>
                 </Row>
             </Card>
