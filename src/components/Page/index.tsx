@@ -14,7 +14,7 @@ export const Page: React.FC<TProps> = props => {
                 <h1>{title}</h1>
             </Row>
             <Row>
-                <Col xs={24}>
+                <Col span={24}>
                     <Card>{children}</Card>
                 </Col>
             </Row>

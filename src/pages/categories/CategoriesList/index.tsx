@@ -11,7 +11,12 @@ export const CategoriesList: React.FC = () => {
 
     return (
         <Page title='Категории'>
-            <CommonTable items={data} loading={isFetching} columns={columns} />
+            <CommonTable
+                refetch={refetch}
+                items={data}
+                loading={isFetching}
+                columns={columns}
+            />
         </Page>
     );
 };

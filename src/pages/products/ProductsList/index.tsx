@@ -11,7 +11,12 @@ export const ProductsList: React.FC = () => {
 
     return (
         <Page title='Продукты'>
-            <CommonTable columns={columns} loading={isFetching} items={data} />
+            <CommonTable
+                refetch={refetch}
+                columns={columns}
+                loading={isFetching}
+                items={data}
+            />
         </Page>
     );
 };
