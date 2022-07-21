@@ -5,6 +5,7 @@ import { Page } from 'components/Page';
 import { CommonTable } from 'components/CommonTable';
 
 import columns from './columns';
+import { TransactionsTable } from './transactions.table';
 
 export const WaybillsList: React.FC = () => {
     const { data, isFetching, refetch } = useGetWaybillsQuery();
@@ -17,6 +18,11 @@ export const WaybillsList: React.FC = () => {
                 loading={isFetching}
                 items={data}
                 hasDefaultColumns={false}
+                expandedRowRenderer={{
+                    expandedRowRender: ({ transactions }) => {
+                        return <TransactionsTable items={transactions} />;
+                    },
+                }}
             />
         </Page>
     );

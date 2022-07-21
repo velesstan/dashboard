@@ -1,4 +1,5 @@
 import { BaseEntity } from './entity';
+import { Transaction } from './transaction';
 import { User } from './user';
 
 export enum WaybillActionTypes {
@@ -30,4 +31,5 @@ export interface Waybill extends BaseEntity {
     readonly user: User;
     readonly source?: string;
     readonly destination?: string;
+    readonly transactions: Transaction[];
 }

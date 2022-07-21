@@ -6,3 +6,4 @@ export type { Product } from './product';
 export type { Holder, HolderTypes, HolderType } from './holder';
 export type { Waybill } from './waybill';
 export type { Balance } from './balance';
+export type { Transaction } from './transaction';
