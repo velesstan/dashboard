@@ -7,7 +7,7 @@ import { CommonTable } from 'components/CommonTable';
 import columns from './columns';
 
 export const UsersList: React.FC = () => {
-    const { data, isFetching, refetch } = useGetUsersQuery();
+    const { data = [], isFetching, refetch } = useGetUsersQuery();
 
     return (
         <Page title='Пользователи'>
@@ -16,6 +16,13 @@ export const UsersList: React.FC = () => {
                 columns={columns}
                 loading={isFetching}
                 items={data}
+                hasDefaultColumns={false}
+                onEdit={value => {
+                    void console.log(value);
+                }}
+                onDelete={value => {
+                    void console.log(value);
+                }}
             />
         </Page>
     );

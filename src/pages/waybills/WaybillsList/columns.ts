@@ -33,10 +33,6 @@ const columns: Array<DataColumn<Waybill>> = [
         title: 'Пользователь',
         dataIndex: 'user',
     },
-    {
-        title: 'Действия',
-        render: () => '',
-    },
 ];
 
 export default columns;

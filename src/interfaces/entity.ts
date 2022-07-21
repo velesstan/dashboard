@@ -6,8 +6,8 @@ export type BaseEntity = {
     readonly updatedAt: Date;
 };
 
-export type DataColumn<T> = {
+export type DataColumn<T extends BaseEntity> = {
     readonly title: string;
     readonly dataIndex?: keyof T | [keyof T, ...string[]];
-    readonly render?: (entity: BaseEntity & T) => React.ReactElement | string;
+    readonly render?: (entity: T) => React.ReactElement | string;
 };
