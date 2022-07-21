@@ -2,7 +2,7 @@ import dayjs from 'dayjs';
 
 import type { DataColumn, Waybill } from 'interfaces';
 
-import { getWaybillType } from './helpers';
+import { getWaybillActionType } from './helpers';
 
 const columns: Array<DataColumn<Waybill>> = [
     {
@@ -22,8 +22,8 @@ const columns: Array<DataColumn<Waybill>> = [
         dataIndex: ['destination', 'title'],
     },
     {
-        title: 'Тип накладной',
-        render: ({ action }) => getWaybillType(action),
+        title: 'Процесс',
+        render: ({ action }) => getWaybillActionType(action),
     },
     {
         title: 'Итого',
