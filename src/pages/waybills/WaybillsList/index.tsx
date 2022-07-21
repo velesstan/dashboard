@@ -19,9 +19,11 @@ export const WaybillsList: React.FC = () => {
                 items={data}
                 hasDefaultColumns={false}
                 expandedRowRenderer={{
-                    expandedRowRender: ({ transactions }) => {
-                        return <TransactionsTable items={transactions} />;
-                    },
+                    expandedRowRender: ({ transactions }) => (
+                        <React.Fragment>
+                            <TransactionsTable items={transactions} />
+                        </React.Fragment>
+                    ),
                 }}
             />
         </Page>
