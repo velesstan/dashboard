@@ -11,26 +11,26 @@ import renderDefaultActions from './defaultActions';
 const { Column } = Table;
 
 type TProps<T extends BaseEntity> = {
+    readonly onEdit?: (entity: T) => void;
+    readonly onDelete?: (entity: T) => void;
+    readonly refetch: () => void;
     readonly items: Array<T>;
     readonly columns: Array<Omit<DataColumn<T>, 'dataIndex'>>;
     readonly hasDefaultColumns?: boolean;
     readonly loading: boolean;
-    readonly onEdit?: (entity: T) => void;
-    readonly onDelete?: (entity: T) => void;
-    readonly refetch: () => void;
     readonly expandedRowRenderer?: ExpandableConfig<T>;
 };
 
 export const CommonTable = <T extends BaseEntity>(props: TProps<T>) => {
     const {
-        hasDefaultColumns = true,
-        expandedRowRenderer,
-        items,
-        columns,
-        refetch,
-        loading,
         onEdit,
         onDelete,
+        refetch,
+        items,
+        columns,
+        loading,
+        expandedRowRenderer,
+        hasDefaultColumns = true,
     } = props;
 
     return (
