@@ -1,6 +1,6 @@
-export enum RoleTypes {
-    Admin = 'admin',
-    User = 'user',
-}
+import type { BaseEntity } from './entity';
 
-export type RoleType = `${RoleTypes}`;
+export interface Role extends BaseEntity {
+    readonly title: string;
+    readonly description: string;
+}

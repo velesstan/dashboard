@@ -4,8 +4,20 @@ import type { DataColumn, User } from 'interfaces';
 
 const columns: Array<DataColumn<User>> = [
     {
-        title: 'Имя',
+        title: 'Логин',
         dataIndex: 'username',
+    },
+    {
+        title: 'Имя',
+        dataIndex: 'firstName',
+    },
+    {
+        title: 'Фамилия',
+        dataIndex: 'lastName',
+    },
+    {
+        title: 'Уровень доступа',
+        dataIndex: ['role', 'title'],
     },
 ];
 

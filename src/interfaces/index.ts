@@ -1,5 +1,5 @@
 export type { BaseEntity, DataColumn } from './entity';
-export type { RoleTypes, RoleType } from './role';
+export type { Role } from './role';
 export type { User } from './user';
 export type { Category } from './category';
 export type { Product } from './product';
