@@ -6,7 +6,7 @@ import { Page } from 'components/Page';
 import { CommonTable } from 'components/CommonTable';
 
 import columns from './columns';
-import { TransactionsTable } from '../components/TransactionTable';
+import { TransactionsTable } from '../components/TransactionsTable';
 
 export const WaybillsList: React.FC = () => {
     const { data, isFetching, refetch } = useGetWaybillsQuery();
