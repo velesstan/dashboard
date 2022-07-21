@@ -1,8 +1,9 @@
 import React from 'react';
 import { Button, Col, Row, Space, Table } from 'antd';
 import { SyncOutlined } from '@ant-design/icons';
+import type { ExpandableConfig } from 'antd/lib/table/interface';
 
-import { DataColumn, BaseEntity } from 'interfaces';
+import type { DataColumn, BaseEntity } from 'interfaces';
 
 import defaultColumns from './defaultColumns';
 import renderDefaultActions from './defaultActions';
@@ -17,11 +18,13 @@ type TProps<T extends BaseEntity> = {
     readonly onEdit?: (entity: T) => void;
     readonly onDelete?: (entity: T) => void;
     readonly refetch: () => void;
+    readonly expandedRowRenderer?: ExpandableConfig<T>;
 };
 
 export const CommonTable = <T extends BaseEntity>(props: TProps<T>) => {
     const {
         hasDefaultColumns = true,
+        expandedRowRenderer,
         items,
         columns,
         refetch,
@@ -50,6 +53,7 @@ export const CommonTable = <T extends BaseEntity>(props: TProps<T>) => {
                         rowKey={item => item._id}
                         loading={loading}
                         dataSource={items}
+                        expandable={expandedRowRenderer}
                     >
                         {columns
                             .concat(hasDefaultColumns ? defaultColumns : [])
