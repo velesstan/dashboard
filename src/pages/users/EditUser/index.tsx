@@ -3,14 +3,16 @@ import { useLocation, useParams } from 'react-router-dom';
 
 import { Page } from 'components/Page';
 import { User } from 'interfaces';
-import { useUpdateUserMutation } from 'store/features';
+import { useGetRolesQuery, useUpdateUserMutation } from 'store/features';
+import { CommonForm } from 'components/CommonForm';
 
-import { UserForm } from './form';
+import renderFields from './fields';
 
 export const EditUser: React.FC = () => {
     const { id } = useParams();
     const { state } = useLocation() as { state: { user: User } };
 
+    const roles = useGetRolesQuery().data || [];
     const [updatedUser] = useUpdateUserMutation();
 
     const [user, setUser] = useState<User | null>(null);
@@ -29,7 +31,15 @@ export const EditUser: React.FC = () => {
 
     return (
         <Page title='Пользователи'>
-            <UserForm onSave={onSave} user={user} />
+            <CommonForm
+                entity={user}
+                onSave={onSave}
+                transformEntity={entity => ({
+                    ...entity,
+                    role: entity?.role?._id,
+                })}
+                fields={renderFields({ roles })}
+            />
         </Page>
     );
 };
