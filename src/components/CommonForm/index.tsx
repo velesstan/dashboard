@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Button, Col, Form, FormItemProps, Row, Space } from 'antd';
+import { Button, Col, Form, FormItemProps, Input, Row, Space } from 'antd';
 import { useForm } from 'antd/lib/form/Form';
 
 import type { BaseEntity } from 'interfaces';
@@ -9,17 +9,24 @@ type TProps<T> = {
     readonly onSave?: (entity: BaseEntity & T) => void;
     readonly fields?: Array<
         FormItemProps & {
-            component: React.ReactElement;
-            size: number;
+            component?: React.ReactElement;
+            size?: number;
         }
     >;
+    readonly transformEntity?: (entity: BaseEntity & T) => any;
 };
 
 export const CommonForm = <T,>(props: TProps<T>) => {
-    const { entity, fields = [], onSave } = props;
+    const {
+        entity,
+        fields = [],
+        onSave,
+        transformEntity = entity => entity,
+    } = props;
 
     useEffect(() => {
-        form.setFieldsValue({ ...entity });
+        console.log({ ...entity, ...transformEntity(entity) });
+        form.setFieldsValue({ ...entity, ...transformEntity(entity) });
     }, [entity]);
 
     const [form] = useForm();
@@ -37,8 +44,10 @@ export const CommonForm = <T,>(props: TProps<T>) => {
         >
             <Row gutter={24}>
                 {fields.map(({ component, size, ...fieldProps }, index) => (
-                    <Col span={size} key={index}>
-                        <Form.Item {...fieldProps}>{component}</Form.Item>
+                    <Col span={size || 8} key={index}>
+                        <Form.Item {...fieldProps}>
+                            {component || <Input />}
+                        </Form.Item>
                     </Col>
                 ))}
                 <Col span={24}>
