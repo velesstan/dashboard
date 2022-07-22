@@ -8,6 +8,7 @@ import { HoldersList } from 'pages/holders/HoldersList';
 import { WaybillsList } from 'pages/waybills/WaybillsList';
 import { BalancesList } from 'pages/balances/BalancesList';
 import { EditUser } from 'pages/users/EditUser';
+import { EditHolder } from 'pages/holders/EditHolder';
 
 export const routes: RouteObject[] = [
     {
@@ -93,11 +94,15 @@ export const routes: RouteObject[] = [
                                 children: [
                                     {
                                         path: '',
-                                        element: <Navigate to='list' />,
+                                        element: <HoldersList />,
                                     },
                                     {
-                                        path: 'list',
-                                        element: <HoldersList />,
+                                        path: 'create',
+                                        element: <EditHolder />,
+                                    },
+                                    {
+                                        path: ':id/edit',
+                                        element: <EditHolder />,
                                     },
                                 ],
                             },
