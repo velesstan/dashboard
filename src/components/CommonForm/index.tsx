@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { Button, Col, Form, FormItemProps, Input, Row, Space } from 'antd';
 import { useForm } from 'antd/lib/form/Form';
+import { useNavigate } from 'react-router-dom';
 
 import type { BaseEntity } from 'interfaces';
 
@@ -24,13 +25,19 @@ export const CommonForm = <T,>(props: TProps<T>) => {
         transformEntity = entity => entity,
     } = props;
 
+    const navigate = useNavigate();
+
     useEffect(() => {
         form.setFieldsValue({ ...entity, ...transformEntity(entity) });
     }, [entity]);
 
     const [form] = useForm();
 
-    const handleSubmit = (values: BaseEntity & T): void => {
+    const onAbort = (): void => {
+        navigate(-1);
+    };
+
+    const onSubmit = (values: BaseEntity & T): void => {
         onSave({ ...entity, ...values });
     };
 
@@ -39,7 +46,7 @@ export const CommonForm = <T,>(props: TProps<T>) => {
             form={form}
             initialValues={entity}
             layout='vertical'
-            onFinish={handleSubmit}
+            onFinish={onSubmit}
         >
             <Row gutter={24}>
                 {fields.map(({ component, size, ...fieldProps }, index) => (
@@ -55,7 +62,9 @@ export const CommonForm = <T,>(props: TProps<T>) => {
                             <Button type='primary' htmlType='submit'>
                                 Сохранить
                             </Button>
-                            <Button htmlType='reset'>Отмена</Button>
+                            <Button htmlType='reset' onClick={onAbort}>
+                                Отмена
+                            </Button>
                         </Space>
                     </Form.Item>
                 </Col>
