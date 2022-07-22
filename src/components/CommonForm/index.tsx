@@ -13,7 +13,7 @@ type TProps<T> = {
             size?: number;
         }
     >;
-    readonly transformEntity?: (entity: BaseEntity & T) => any;
+    readonly transformEntity?: (entity: BaseEntity & T) => BaseEntity & unknown;
 };
 
 export const CommonForm = <T,>(props: TProps<T>) => {
