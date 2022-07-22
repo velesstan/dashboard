@@ -12,15 +12,7 @@ export const usersApi = createApi({
     endpoints: builder => ({
         getUsers: builder.query<User[], void>({
             query: () => `/`,
-            providesTags: result =>
-                result
-                    ? [
-                          ...result.map(({ _id }) => ({
-                              type: 'User' as const,
-                              id: _id,
-                          })),
-                      ]
-                    : ['User'],
+            providesTags: result => ['User'],
         }),
         getUser: builder.query<User, string>({
             query: id => `/${id}`,
