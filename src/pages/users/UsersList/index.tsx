@@ -1,7 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import { useGetUsersQuery } from 'store/features';
+import { useDeleteUserMutation, useGetUsersQuery } from 'store/features';
 import { Page } from 'components/Page';
 import { CommonTable } from 'components/CommonTable';
 import { User } from 'interfaces';
@@ -10,6 +10,7 @@ import columns from './columns';
 
 export const UsersList: React.FC = () => {
     const { data = [], isFetching, refetch } = useGetUsersQuery();
+    const [deleteUser] = useDeleteUserMutation();
 
     const navigate = useNavigate();
 
@@ -20,7 +21,7 @@ export const UsersList: React.FC = () => {
     };
 
     const onDelete = ({ _id }: User): void => {
-        void 0;
+        deleteUser(_id);
     };
 
     return (
