@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useLocation, useParams } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 
 import { Page } from 'components/Page';
 import { User } from 'interfaces';
@@ -13,31 +13,30 @@ import { CommonForm } from 'components/CommonForm';
 import renderFields from './fields';
 
 export const EditUser: React.FC = () => {
-    const { id } = useParams();
-    const { state } = useLocation() as { state: { user: User } };
+    const { state } = useLocation() as { state: { entity: User } };
 
     const roles = useGetRolesQuery().data || [];
     const [updatedUser] = useUpdateUserMutation();
     const [createUser] = useCreateUserMutation();
 
-    const [user, setUser] = useState<User | null>(null);
+    const [entity, setEntity] = useState<User | null>(null);
 
     useEffect(() => {
-        setUser(state?.user || null);
+        setEntity(state?.entity || null);
     }, [state]);
 
-    const onSave = (user: User): void => {
-        if (id) {
-            updatedUser(user);
+    const onSave = (entity: User): void => {
+        if (entity._id) {
+            updatedUser(entity);
         } else {
-            createUser(user);
+            createUser(entity);
         }
     };
 
     return (
         <Page title='Пользователи'>
             <CommonForm
-                entity={user}
+                entity={entity}
                 onSave={onSave}
                 transformEntity={entity => ({
                     ...entity,

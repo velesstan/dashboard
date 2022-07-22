@@ -18,9 +18,9 @@ export const HoldersList: React.FC = () => {
         navigate(`create`, {});
     };
 
-    const onEdit = (holder: Holder): void => {
-        navigate(`${holder._id}/edit`, {
-            state: { entity: holder },
+    const onEdit = (entity: Holder): void => {
+        navigate(`${entity._id}/edit`, {
+            state: { entity },
         });
     };
 

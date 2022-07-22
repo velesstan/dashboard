@@ -14,14 +14,14 @@ export const UsersList: React.FC = () => {
 
     const navigate = useNavigate();
 
-    const onEdit = (user: User): void => {
-        navigate(`${user._id}/edit`, {
-            state: { user },
-        });
-    };
-
     const onCreate = (): void => {
         navigate(`create`);
+    };
+
+    const onEdit = (entity: User): void => {
+        navigate(`${entity._id}/edit`, {
+            state: { entity },
+        });
     };
 
     const onDelete = ({ _id }: User): void => {
