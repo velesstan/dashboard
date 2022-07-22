@@ -9,6 +9,7 @@ import { WaybillsList } from 'pages/waybills/WaybillsList';
 import { BalancesList } from 'pages/balances/BalancesList';
 import { EditUser } from 'pages/users/EditUser';
 import { EditHolder } from 'pages/holders/EditHolder';
+import { EditCategory } from 'pages/categories/EditCategory';
 
 export const routes: RouteObject[] = [
     {
@@ -68,11 +69,15 @@ export const routes: RouteObject[] = [
                                 children: [
                                     {
                                         path: '',
-                                        element: <Navigate to='list' />,
+                                        element: <CategoriesList />,
                                     },
                                     {
-                                        path: 'list',
-                                        element: <CategoriesList />,
+                                        path: 'create',
+                                        element: <EditCategory />,
+                                    },
+                                    {
+                                        path: ':id/edit',
+                                        element: <EditCategory />,
                                     },
                                 ],
                             },
