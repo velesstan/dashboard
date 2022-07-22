@@ -10,7 +10,15 @@ export const holdersApi = createApi({
     }),
     tagTypes: ['Holder'],
     endpoints: builder => ({
-        getHolders: builder.query<Holder[], void>({
+        createHolder: builder.mutation<Holder, Holder>({
+            query: holder => ({
+                url: `/`,
+                method: 'POST',
+                body: holder,
+            }),
+            invalidatesTags: ['Holder'],
+        }),
+        readHolders: builder.query<Holder[], void>({
             query: () => `/`,
             providesTags: result =>
                 result
@@ -21,14 +29,6 @@ export const holdersApi = createApi({
                           })),
                       ]
                     : ['Holder'],
-        }),
-        createHolder: builder.mutation<Holder, Holder>({
-            query: holder => ({
-                url: `/`,
-                method: 'POST',
-                body: holder,
-            }),
-            invalidatesTags: ['Holder'],
         }),
         updateHolder: builder.mutation<Holder, Partial<Holder>>({
             query: ({ _id, ...update }) => ({
@@ -51,8 +51,8 @@ export const holdersApi = createApi({
 });
 
 export const {
-    useGetHoldersQuery,
+    useCreateHolderMutation,
+    useReadHoldersQuery,
     useUpdateHolderMutation,
     useDeleteHolderMutation,
-    useCreateHolderMutation,
 } = holdersApi;

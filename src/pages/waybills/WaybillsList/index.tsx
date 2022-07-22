@@ -1,7 +1,7 @@
 import React from 'react';
 import { Col, Row } from 'antd';
 
-import { useGetWaybillsQuery } from 'store/features';
+import { useReadWaybillsQuery } from 'store/features';
 import { Page } from 'components/Page';
 import { CommonTable } from 'components/CommonTable';
 
@@ -9,7 +9,7 @@ import columns from './columns';
 import { TransactionsTable } from '../components/TransactionsTable';
 
 export const WaybillsList: React.FC = () => {
-    const { data, isFetching, refetch } = useGetWaybillsQuery();
+    const { data, isFetching, refetch } = useReadWaybillsQuery();
 
     return (
         <Page title='Накладные'>

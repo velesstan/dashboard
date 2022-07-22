@@ -2,8 +2,8 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import {
+    useReadCategoriesQuery,
     useDeleteCategoryMutation,
-    useGetCategoriesQuery,
 } from 'store/features';
 import { Page } from 'components/Page';
 import { CommonTable } from 'components/CommonTable';
@@ -12,7 +12,7 @@ import { Category } from 'interfaces';
 import columns from './columns';
 
 export const CategoriesList: React.FC = () => {
-    const { data, isFetching, refetch } = useGetCategoriesQuery();
+    const { data, isFetching, refetch } = useReadCategoriesQuery();
 
     const [deleteCategory] = useDeleteCategoryMutation();
 

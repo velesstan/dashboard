@@ -9,10 +9,10 @@ export const rolesApi = createApi({
         baseUrl: `${BASE_URL}/roles`,
     }),
     endpoints: builder => ({
-        getRoles: builder.query<Role[], void>({
+        readRoles: builder.query<Role[], void>({
             query: () => `/`,
         }),
     }),
 });
 
-export const { useGetRolesQuery } = rolesApi;
+export const { useReadRolesQuery } = rolesApi;

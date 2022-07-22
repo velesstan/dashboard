@@ -9,10 +9,10 @@ export const balancesApi = createApi({
         baseUrl: `${BASE_URL}/balances`,
     }),
     endpoints: builder => ({
-        getBalances: builder.query<Balance[], void>({
+        readBalances: builder.query<Balance[], void>({
             query: () => `/`,
         }),
     }),
 });
 
-export const { useGetBalancesQuery } = balancesApi;
+export const { useReadBalancesQuery } = balancesApi;

@@ -5,8 +5,8 @@ import { Page } from 'components/Page';
 import { User } from 'interfaces';
 import {
     useCreateUserMutation,
-    useGetRolesQuery,
     useUpdateUserMutation,
+    useReadRolesQuery,
 } from 'store/features';
 import { CommonForm } from 'components/CommonForm';
 
@@ -15,7 +15,7 @@ import renderFields from './fields';
 export const EditUser: React.FC = () => {
     const { state } = useLocation() as { state: { entity: User } };
 
-    const roles = useGetRolesQuery().data || [];
+    const roles = useReadRolesQuery().data || [];
     const [updatedUser] = useUpdateUserMutation();
     const [createUser] = useCreateUserMutation();
 

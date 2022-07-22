@@ -10,10 +10,6 @@ export const categoriesApi = createApi({
         baseUrl: `${BASE_URL}/categories`,
     }),
     endpoints: builder => ({
-        getCategories: builder.query<Category[], void>({
-            query: () => `/`,
-            providesTags: ['Category'],
-        }),
         createCategory: builder.mutation<Category, Category>({
             query: category => ({
                 url: `/`,
@@ -21,6 +17,10 @@ export const categoriesApi = createApi({
                 body: category,
             }),
             invalidatesTags: ['Category'],
+        }),
+        readCategories: builder.query<Category[], void>({
+            query: () => `/`,
+            providesTags: ['Category'],
         }),
         updateCategory: builder.mutation<Category, Partial<Category>>({
             query: ({ _id, ...update }) => ({
@@ -41,8 +41,8 @@ export const categoriesApi = createApi({
 });
 
 export const {
-    useGetCategoriesQuery,
     useCreateCategoryMutation,
-    useDeleteCategoryMutation,
+    useReadCategoriesQuery,
     useUpdateCategoryMutation,
+    useDeleteCategoryMutation,
 } = categoriesApi;

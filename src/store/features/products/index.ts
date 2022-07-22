@@ -18,16 +18,9 @@ export const productsApi = createApi({
             }),
             invalidatesTags: ['Product'],
         }),
-        getProducts: builder.query<Product[], void>({
+        readProducts: builder.query<Product[], void>({
             query: () => `/`,
             providesTags: ['Product'],
-        }),
-        deleteProduct: builder.mutation<void, string>({
-            query: id => ({
-                url: `/${id}`,
-                method: 'DELETE',
-            }),
-            invalidatesTags: ['Product'],
         }),
         updateProduct: builder.mutation<Product, Partial<Product>>({
             query: ({ _id, ...update }) => ({
@@ -37,12 +30,19 @@ export const productsApi = createApi({
             }),
             invalidatesTags: ['Product'],
         }),
+        deleteProduct: builder.mutation<void, string>({
+            query: id => ({
+                url: `/${id}`,
+                method: 'DELETE',
+            }),
+            invalidatesTags: ['Product'],
+        }),
     }),
 });
 
 export const {
-    useGetProductsQuery,
+    useCreateProductMutation,
+    useReadProductsQuery,
     useUpdateProductMutation,
     useDeleteProductMutation,
-    useCreateProductMutation,
 } = productsApi;

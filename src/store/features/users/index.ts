@@ -10,7 +10,15 @@ export const usersApi = createApi({
     }),
     tagTypes: ['User'],
     endpoints: builder => ({
-        getUsers: builder.query<User[], void>({
+        createUser: builder.mutation<User, User>({
+            query: user => ({
+                url: '/',
+                method: 'POST',
+                body: user,
+            }),
+            invalidatesTags: ['User'],
+        }),
+        readUsers: builder.query<User[], void>({
             query: () => `/`,
             providesTags: result =>
                 result
@@ -22,27 +30,6 @@ export const usersApi = createApi({
                       ]
                     : ['User'],
         }),
-        getUser: builder.query<User, string>({
-            query: id => `/${id}`,
-            providesTags: (result, error, id) => [{ type: 'User', id }],
-        }),
-        createUser: builder.mutation<User, User>({
-            query: user => ({
-                url: '/',
-                method: 'POST',
-                body: user,
-            }),
-            invalidatesTags: ['User'],
-        }),
-        deleteUser: builder.mutation<void, string>({
-            query: id => ({
-                url: `/${id}`,
-                method: 'DELETE',
-            }),
-            invalidatesTags: (result, error, arg) => [
-                { type: 'User', id: arg },
-            ],
-        }),
         updateUser: builder.mutation<User, Partial<User>>({
             query: ({ _id, ...update }) => ({
                 url: `/${_id}`,
@@ -53,13 +40,21 @@ export const usersApi = createApi({
                 { type: 'User', id: _id },
             ],
         }),
+        deleteUser: builder.mutation<void, string>({
+            query: id => ({
+                url: `/${id}`,
+                method: 'DELETE',
+            }),
+            invalidatesTags: (result, error, arg) => [
+                { type: 'User', id: arg },
+            ],
+        }),
     }),
 });
 
 export const {
-    useGetUsersQuery,
-    useUpdateUserMutation,
-    useGetUserQuery,
-    useDeleteUserMutation,
     useCreateUserMutation,
+    useReadUsersQuery,
+    useUpdateUserMutation,
+    useDeleteUserMutation,
 } = usersApi;

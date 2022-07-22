@@ -9,10 +9,10 @@ export const waybillsApi = createApi({
         baseUrl: `${BASE_URL}/waybills`,
     }),
     endpoints: builder => ({
-        getWaybills: builder.query<Waybill[], void>({
+        readWaybills: builder.query<Waybill[], void>({
             query: () => `/`,
         }),
     }),
 });
 
-export const { useGetWaybillsQuery } = waybillsApi;
+export const { useReadWaybillsQuery } = waybillsApi;

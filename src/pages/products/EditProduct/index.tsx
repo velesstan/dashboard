@@ -6,15 +6,15 @@ import { Page } from 'components/Page';
 import { Product } from 'interfaces';
 import {
     useCreateProductMutation,
-    useGetCategoriesQuery,
     useUpdateProductMutation,
+    useReadCategoriesQuery,
 } from 'store/features';
 import { CommonForm } from 'components/CommonForm';
 
 export const EditProduct: React.FC = () => {
     const { state } = useLocation() as { state: { entity: Product } };
 
-    const categories = useGetCategoriesQuery().data || [];
+    const categories = useReadCategoriesQuery().data || [];
 
     const [createProduct] = useCreateProductMutation();
     const [updateProduct] = useUpdateProductMutation();

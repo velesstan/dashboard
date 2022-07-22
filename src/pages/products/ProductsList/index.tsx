@@ -1,7 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import { useGetProductsQuery, useDeleteProductMutation } from 'store/features';
+import { useReadProductsQuery, useDeleteProductMutation } from 'store/features';
 import { Page } from 'components/Page';
 import { CommonTable } from 'components/CommonTable';
 import { Product } from 'interfaces';
@@ -9,7 +9,7 @@ import { Product } from 'interfaces';
 import columns from './columns';
 
 export const ProductsList: React.FC = () => {
-    const { data, isFetching, refetch } = useGetProductsQuery();
+    const { data, isFetching, refetch } = useReadProductsQuery();
     const [deleteProduct] = useDeleteProductMutation();
 
     const navigate = useNavigate();
