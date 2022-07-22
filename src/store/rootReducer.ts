@@ -8,6 +8,7 @@ import {
     waybillsApi,
     balancesApi,
 } from './features';
+import { rolesApi } from './features/roles';
 
 const rootReducer = combineReducers({
     [categoriesApi.reducerPath]: categoriesApi.reducer,
@@ -16,6 +17,7 @@ const rootReducer = combineReducers({
     [holdersApi.reducerPath]: holdersApi.reducer,
     [waybillsApi.reducerPath]: waybillsApi.reducer,
     [balancesApi.reducerPath]: balancesApi.reducer,
+    [rolesApi.reducerPath]: rolesApi.reducer,
 });
 
 export default rootReducer;

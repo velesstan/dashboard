@@ -8,6 +8,7 @@ import {
     holdersApi,
     waybillsApi,
     balancesApi,
+    rolesApi,
 } from './features';
 import rootReducer from './rootReducer';
 
@@ -20,7 +21,8 @@ export const store = configureStore({
             usersApi.middleware,
             holdersApi.middleware,
             waybillsApi.middleware,
-            balancesApi.middleware
+            balancesApi.middleware,
+            rolesApi.middleware
         );
     },
 });
