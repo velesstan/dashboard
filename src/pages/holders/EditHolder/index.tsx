@@ -4,7 +4,10 @@ import { useLocation } from 'react-router-dom';
 import { Holder } from 'interfaces';
 import { Page } from 'components/Page';
 import { CommonForm } from 'components/CommonForm';
-import { useUpdateHolderMutation } from 'store/features';
+import {
+    useCreateHolderMutation,
+    useUpdateHolderMutation,
+} from 'store/features';
 
 import renderFields from './fields';
 
@@ -14,16 +17,17 @@ export const EditHolder: React.FC = () => {
     const [entity, setEntity] = useState<Holder | null>(null);
 
     const [updateHolder] = useUpdateHolderMutation();
+    const [createHolder] = useCreateHolderMutation();
 
     useEffect(() => {
         setEntity(state?.entity || null);
     }, [state]);
 
-    const onSave = async (entity: Holder) => {
+    const onSave = (entity: Holder): void => {
         if (entity._id) {
             updateHolder(entity);
         } else {
-            console.log('Should create');
+            createHolder(entity);
         }
     };
 

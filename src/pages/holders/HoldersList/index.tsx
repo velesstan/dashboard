@@ -14,6 +14,10 @@ export const HoldersList: React.FC = () => {
 
     const navigate = useNavigate();
 
+    const onCreate = (): void => {
+        navigate(`create`, {});
+    };
+
     const onEdit = (holder: Holder): void => {
         navigate(`${holder._id}/edit`, {
             state: { entity: holder },
@@ -33,6 +37,7 @@ export const HoldersList: React.FC = () => {
                 columns={columns}
                 onEdit={onEdit}
                 onDelete={onDelete}
+                onCreate={onCreate}
             />
         </Page>
     );

@@ -22,6 +22,14 @@ export const holdersApi = createApi({
                       ]
                     : ['Holder'],
         }),
+        createHolder: builder.mutation<Holder, Holder>({
+            query: holder => ({
+                url: `/`,
+                method: 'POST',
+                body: holder,
+            }),
+            invalidatesTags: ['Holder'],
+        }),
         updateHolder: builder.mutation<Holder, Partial<Holder>>({
             query: ({ _id, ...update }) => ({
                 url: `/${_id}`,
@@ -46,4 +54,5 @@ export const {
     useGetHoldersQuery,
     useUpdateHolderMutation,
     useDeleteHolderMutation,
+    useCreateHolderMutation,
 } = holdersApi;
