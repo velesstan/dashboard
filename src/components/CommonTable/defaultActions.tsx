@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Space } from 'antd';
+import { Button, Popconfirm, Space } from 'antd';
 import { DeleteOutlined, EditOutlined } from '@ant-design/icons';
 
 import type { DataColumn, BaseEntity } from 'interfaces';
@@ -33,12 +33,16 @@ const reanderDefaultActions = <T extends BaseEntity>(
                             />
                         )}
                         {onDelete && (
-                            <Button
-                                shape='circle'
-                                type='text'
-                                icon={<DeleteOutlined />}
-                                onClick={() => onDelete(entity)}
-                            />
+                            <Popconfirm
+                                title='Вы уверены?'
+                                onConfirm={() => onDelete(entity)}
+                            >
+                                <Button
+                                    shape='circle'
+                                    type='text'
+                                    icon={<DeleteOutlined />}
+                                />
+                            </Popconfirm>
                         )}
                     </Space>
                 </React.Fragment>
