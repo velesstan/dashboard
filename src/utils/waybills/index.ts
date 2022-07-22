@@ -1,4 +1,4 @@
-import type { WaybillActionType, WaybillType } from 'interfaces/waybill';
+import type { WaybillActionType, WaybillType } from 'interfaces';
 
 export const getWaybillActionType = (action: WaybillActionType): string => {
     const map: Record<WaybillActionType, string> = {

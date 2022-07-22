@@ -1,8 +1,7 @@
 import dayjs from 'dayjs';
 
 import type { DataColumn, Waybill } from 'interfaces';
-
-import { getWaybillActionType } from './helpers';
+import { getWaybillActionType } from 'utils';
 
 const columns: Array<DataColumn<Waybill>> = [
     {
