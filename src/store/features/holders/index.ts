@@ -12,7 +12,15 @@ export const holdersApi = createApi({
     endpoints: builder => ({
         getHolders: builder.query<Holder[], void>({
             query: () => `/`,
-            providesTags: ['Holder'],
+            providesTags: result =>
+                result
+                    ? [
+                          ...result.map(({ _id }) => ({
+                              type: 'Holder' as const,
+                              id: _id,
+                          })),
+                      ]
+                    : ['Holder'],
         }),
         updateHolder: builder.mutation<Holder, Partial<Holder>>({
             query: ({ _id, ...update }) => ({
@@ -24,7 +32,18 @@ export const holdersApi = createApi({
                 { type: 'Holder', id: _id },
             ],
         }),
+        deleteHolder: builder.mutation<void, string>({
+            query: _id => ({
+                url: `/${_id}`,
+                method: 'DELETE',
+            }),
+            invalidatesTags: (result, error, id) => [{ type: 'Holder', id }],
+        }),
     }),
 });
 
-export const { useGetHoldersQuery, useUpdateHolderMutation } = holdersApi;
+export const {
+    useGetHoldersQuery,
+    useUpdateHolderMutation,
+    useDeleteHolderMutation,
+} = holdersApi;

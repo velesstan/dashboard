@@ -1,7 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import { useGetHoldersQuery } from 'store/features';
+import { useDeleteHolderMutation, useGetHoldersQuery } from 'store/features';
 import { Page } from 'components/Page';
 import { CommonTable } from 'components/CommonTable';
 import { Holder } from 'interfaces';
@@ -10,6 +10,7 @@ import columns from './columns';
 
 export const HoldersList: React.FC = () => {
     const { data, isFetching, refetch } = useGetHoldersQuery();
+    const [deleteHolder] = useDeleteHolderMutation();
 
     const navigate = useNavigate();
 
@@ -17,6 +18,10 @@ export const HoldersList: React.FC = () => {
         navigate(`${holder._id}/edit`, {
             state: { entity: holder },
         });
+    };
+
+    const onDelete = (entity: Holder) => {
+        deleteHolder(entity._id);
     };
 
     return (
@@ -27,6 +32,7 @@ export const HoldersList: React.FC = () => {
                 loading={isFetching}
                 columns={columns}
                 onEdit={onEdit}
+                onDelete={onDelete}
             />
         </Page>
     );

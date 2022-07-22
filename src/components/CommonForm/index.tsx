@@ -25,7 +25,6 @@ export const CommonForm = <T,>(props: TProps<T>) => {
     } = props;
 
     useEffect(() => {
-        console.log({ ...entity, ...transformEntity(entity) });
         form.setFieldsValue({ ...entity, ...transformEntity(entity) });
     }, [entity]);
 
