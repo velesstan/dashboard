@@ -9,7 +9,7 @@ type DefaultActions<T> = {
     readonly onDelete?: (id: T) => void;
 };
 
-const reanderDefaultActions = <T extends BaseEntity>(
+const renderDefaultActions = <T extends BaseEntity>(
     actions: DefaultActions<T>
 ): Array<DataColumn<T>> => {
     const { onEdit, onDelete } = actions;
@@ -51,4 +51,4 @@ const reanderDefaultActions = <T extends BaseEntity>(
     ];
 };
 
-export default reanderDefaultActions;
+export default renderDefaultActions;
