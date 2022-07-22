@@ -10,6 +10,7 @@ import { BalancesList } from 'pages/balances/BalancesList';
 import { EditUser } from 'pages/users/EditUser';
 import { EditHolder } from 'pages/holders/EditHolder';
 import { EditCategory } from 'pages/categories/EditCategory';
+import { EditProduct } from 'pages/products/EditProduct';
 
 export const routes: RouteObject[] = [
     {
@@ -86,11 +87,15 @@ export const routes: RouteObject[] = [
                                 children: [
                                     {
                                         path: '',
-                                        element: <Navigate to='list' />,
+                                        element: <ProductsList />,
                                     },
                                     {
-                                        path: 'list',
-                                        element: <ProductsList />,
+                                        path: 'create',
+                                        element: <EditProduct />,
+                                    },
+                                    {
+                                        path: ':id/edit',
+                                        element: <EditProduct />,
                                     },
                                 ],
                             },
