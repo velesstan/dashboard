@@ -13,7 +13,7 @@ export const EditUser: React.FC = () => {
     const [user, setUser] = useState<User | null>(null);
 
     useEffect(() => {
-        setUser(state.user || null);
+        setUser(state?.user || null);
     }, [state]);
 
     const onSave = (user: User) => {
