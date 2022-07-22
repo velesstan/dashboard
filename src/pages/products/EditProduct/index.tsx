@@ -16,8 +16,8 @@ export const EditProduct: React.FC = () => {
 
     const categories = useReadCategoriesQuery().data || [];
 
-    const [createProduct] = useCreateProductMutation();
-    const [updateProduct] = useUpdateProductMutation();
+    const [createEntity] = useCreateProductMutation();
+    const [updateEntity] = useUpdateProductMutation();
 
     const [entity, setEntity] = useState<Product | null>(null);
 
@@ -27,9 +27,9 @@ export const EditProduct: React.FC = () => {
 
     const onSave = (entity: Product): void => {
         if (entity._id) {
-            updateProduct(entity);
+            updateEntity(entity);
         } else {
-            createProduct(entity);
+            createEntity(entity);
         }
     };
 
@@ -56,13 +56,14 @@ export const EditProduct: React.FC = () => {
                         ),
                     },
                     {
-                        label: 'СИ',
-                        name: 'unit',
-                    },
-                    {
                         label: 'Код',
                         name: 'code',
                     },
+                    {
+                        label: 'СИ',
+                        name: 'unit',
+                    },
+
                     {
                         label: 'Название',
                         name: 'title',

@@ -10,7 +10,7 @@ import columns from './columns';
 
 export const HoldersList: React.FC = () => {
     const { data, isFetching, refetch } = useReadHoldersQuery();
-    const [deleteHolder] = useDeleteHolderMutation();
+    const [deleteEntity] = useDeleteHolderMutation();
 
     const navigate = useNavigate();
 
@@ -25,7 +25,7 @@ export const HoldersList: React.FC = () => {
     };
 
     const onDelete = (entity: Holder) => {
-        deleteHolder(entity._id);
+        deleteEntity(entity._id);
     };
 
     return (

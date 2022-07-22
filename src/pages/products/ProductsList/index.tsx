@@ -10,7 +10,7 @@ import columns from './columns';
 
 export const ProductsList: React.FC = () => {
     const { data, isFetching, refetch } = useReadProductsQuery();
-    const [deleteProduct] = useDeleteProductMutation();
+    const [deleteEntity] = useDeleteProductMutation();
 
     const navigate = useNavigate();
 
@@ -25,7 +25,7 @@ export const ProductsList: React.FC = () => {
     };
 
     const onDelete = ({ _id }: Product): void => {
-        deleteProduct(_id);
+        deleteEntity(_id);
     };
 
     return (

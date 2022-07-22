@@ -10,7 +10,7 @@ import columns from './columns';
 
 export const UsersList: React.FC = () => {
     const { data = [], isFetching, refetch } = useReadUsersQuery();
-    const [deleteUser] = useDeleteUserMutation();
+    const [deleteEntity] = useDeleteUserMutation();
 
     const navigate = useNavigate();
 
@@ -25,7 +25,7 @@ export const UsersList: React.FC = () => {
     };
 
     const onDelete = ({ _id }: User): void => {
-        deleteUser(_id);
+        deleteEntity(_id);
     };
 
     return (

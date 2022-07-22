@@ -16,8 +16,9 @@ export const EditUser: React.FC = () => {
     const { state } = useLocation() as { state: { entity: User } };
 
     const roles = useReadRolesQuery().data || [];
-    const [updatedUser] = useUpdateUserMutation();
-    const [createUser] = useCreateUserMutation();
+
+    const [createEntity] = useCreateUserMutation();
+    const [updateEntity] = useUpdateUserMutation();
 
     const [entity, setEntity] = useState<User | null>(null);
 
@@ -27,9 +28,9 @@ export const EditUser: React.FC = () => {
 
     const onSave = (entity: User): void => {
         if (entity._id) {
-            updatedUser(entity);
+            updateEntity(entity);
         } else {
-            createUser(entity);
+            createEntity(entity);
         }
     };
 

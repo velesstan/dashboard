@@ -16,8 +16,8 @@ export const EditHolder: React.FC = () => {
 
     const [entity, setEntity] = useState<Holder | null>(null);
 
-    const [updateHolder] = useUpdateHolderMutation();
-    const [createHolder] = useCreateHolderMutation();
+    const [createEntity] = useCreateHolderMutation();
+    const [updateEntity] = useUpdateHolderMutation();
 
     useEffect(() => {
         setEntity(state?.entity || null);
@@ -25,9 +25,9 @@ export const EditHolder: React.FC = () => {
 
     const onSave = (entity: Holder): void => {
         if (entity._id) {
-            updateHolder(entity);
+            updateEntity(entity);
         } else {
-            createHolder(entity);
+            createEntity(entity);
         }
     };
 

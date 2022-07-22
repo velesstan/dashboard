@@ -14,7 +14,7 @@ import columns from './columns';
 export const CategoriesList: React.FC = () => {
     const { data, isFetching, refetch } = useReadCategoriesQuery();
 
-    const [deleteCategory] = useDeleteCategoryMutation();
+    const [deleteEntity] = useDeleteCategoryMutation();
 
     const navigate = useNavigate();
 
@@ -29,7 +29,7 @@ export const CategoriesList: React.FC = () => {
     };
 
     const onDelete = (entity: Category) => {
-        deleteCategory(entity._id);
+        deleteEntity(entity._id);
     };
 
     return (
