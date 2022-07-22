@@ -20,6 +20,10 @@ export const UsersList: React.FC = () => {
         });
     };
 
+    const onCreate = (): void => {
+        navigate(`create`);
+    };
+
     const onDelete = ({ _id }: User): void => {
         deleteUser(_id);
     };
@@ -34,6 +38,7 @@ export const UsersList: React.FC = () => {
                 hasDefaultColumns={false}
                 onEdit={onEdit}
                 onDelete={onDelete}
+                onCreate={onCreate}
             />
         </Page>
     );

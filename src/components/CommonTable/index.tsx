@@ -1,6 +1,6 @@
 import React from 'react';
 import { Button, Col, Row, Space, Table } from 'antd';
-import { SyncOutlined } from '@ant-design/icons';
+import { PlusOutlined, SyncOutlined } from '@ant-design/icons';
 import type { ExpandableConfig } from 'antd/lib/table/interface';
 
 import type { DataColumn, BaseEntity } from 'interfaces';
@@ -13,6 +13,7 @@ const { Column } = Table;
 type TProps<T extends BaseEntity> = {
     readonly onEdit?: (entity: T) => void;
     readonly onDelete?: (entity: T) => void;
+    readonly onCreate?: () => void;
     readonly refetch: () => void;
     readonly items: Array<T>;
     readonly columns: Array<Omit<DataColumn<T>, 'dataIndex'>>;
@@ -25,6 +26,7 @@ export const CommonTable = <T extends BaseEntity>(props: TProps<T>) => {
     const {
         onEdit,
         onDelete,
+        onCreate,
         refetch,
         items,
         columns,
@@ -38,6 +40,14 @@ export const CommonTable = <T extends BaseEntity>(props: TProps<T>) => {
             <Row gutter={[24, 24]} justify='end'>
                 <Col>
                     <Space>
+                        {onCreate && (
+                            <Button
+                                onClick={() => onCreate()}
+                                icon={<PlusOutlined />}
+                            >
+                                Создать
+                            </Button>
+                        )}
                         <Button
                             icon={<SyncOutlined />}
                             loading={loading}

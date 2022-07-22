@@ -3,7 +3,11 @@ import { useLocation, useParams } from 'react-router-dom';
 
 import { Page } from 'components/Page';
 import { User } from 'interfaces';
-import { useGetRolesQuery, useUpdateUserMutation } from 'store/features';
+import {
+    useCreateUserMutation,
+    useGetRolesQuery,
+    useUpdateUserMutation,
+} from 'store/features';
 import { CommonForm } from 'components/CommonForm';
 
 import renderFields from './fields';
@@ -14,6 +18,7 @@ export const EditUser: React.FC = () => {
 
     const roles = useGetRolesQuery().data || [];
     const [updatedUser] = useUpdateUserMutation();
+    const [createUser] = useCreateUserMutation();
 
     const [user, setUser] = useState<User | null>(null);
 
@@ -21,11 +26,11 @@ export const EditUser: React.FC = () => {
         setUser(state?.user || null);
     }, [state]);
 
-    const onSave = async (user: User) => {
+    const onSave = (user: User): void => {
         if (id) {
-            await updatedUser(user);
+            updatedUser(user);
         } else {
-            console.log('Should create');
+            createUser(user);
         }
     };
 
