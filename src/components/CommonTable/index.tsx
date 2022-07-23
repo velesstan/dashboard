@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState, cloneElement } from 'react';
 import { Button, Col, Row, Space, Table } from 'antd';
 import { PlusOutlined, SyncOutlined } from '@ant-design/icons';
 import type { ExpandableConfig } from 'antd/lib/table/interface';
@@ -20,6 +20,11 @@ type TProps<T extends BaseEntity> = {
     readonly hasDefaultColumns?: boolean;
     readonly loading: boolean;
     readonly expandedRowRenderer?: ExpandableConfig<T>;
+
+    readonly search?: {
+        filters: React.ReactElement[];
+        onSearch: (values: Record<string, unknown>) => void;
+    };
 };
 
 export const CommonTable = <T extends BaseEntity>(props: TProps<T>) => {
@@ -27,6 +32,7 @@ export const CommonTable = <T extends BaseEntity>(props: TProps<T>) => {
         onEdit,
         onDelete,
         onCreate,
+        search,
         refetch,
         items,
         columns,
@@ -35,9 +41,33 @@ export const CommonTable = <T extends BaseEntity>(props: TProps<T>) => {
         hasDefaultColumns = true,
     } = props;
 
+    const [filtersData, setFiltersData] = useState<Record<string, unknown>>();
+
+    const handleFilterChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const { target } = e;
+        setFiltersData(prev => ({
+            ...prev,
+            [target.name]: target.value,
+        }));
+    };
+
+    useEffect(() => {
+        if (search && filtersData) search.onSearch(filtersData);
+    }, [filtersData]);
+
     return (
         <React.Fragment>
-            <Row gutter={[24, 24]} justify='end'>
+            <Row gutter={[24, 24]} justify={search ? 'space-between' : 'end'}>
+                {search && (
+                    <Col>
+                        {search.filters.map((filter, index) =>
+                            cloneElement(filter, {
+                                key: index,
+                                onChange: handleFilterChange,
+                            })
+                        )}
+                    </Col>
+                )}
                 <Col>
                     <Space>
                         {onCreate && (

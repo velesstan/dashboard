@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { Input } from 'antd';
 
 import { useReadProductsQuery, useDeleteProductMutation } from 'store/features';
 import { Page } from 'components/Page';
@@ -9,7 +10,9 @@ import { Product } from 'interfaces';
 import columns from './columns';
 
 export const ProductsList: React.FC = () => {
-    const { data, isFetching, refetch } = useReadProductsQuery();
+    const [searchQuery, setSearchQuery] = useState<Record<string, unknown>>();
+
+    const { data, isFetching, refetch } = useReadProductsQuery(searchQuery);
     const [deleteEntity] = useDeleteProductMutation();
 
     const navigate = useNavigate();
@@ -38,6 +41,10 @@ export const ProductsList: React.FC = () => {
                 onCreate={onCreate}
                 onEdit={onEdit}
                 onDelete={onDelete}
+                search={{
+                    filters: [<Input name='code' placeholder='Поиск' />],
+                    onSearch: setSearchQuery,
+                }}
             />
         </Page>
     );

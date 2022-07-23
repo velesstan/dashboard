@@ -18,8 +18,11 @@ export const productsApi = createApi({
             }),
             invalidatesTags: ['Product'],
         }),
-        readProducts: builder.query<Product[], void>({
-            query: () => `/`,
+        readProducts: builder.query<Product[], Record<string, unknown>>({
+            query: query => ({
+                url: `/`,
+                params: query,
+            }),
             providesTags: ['Product'],
         }),
         updateProduct: builder.mutation<Product, Partial<Product>>({
