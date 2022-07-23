@@ -16,19 +16,23 @@ const columns: Array<DataColumn<Balance>> = [
     {
         title: 'Остаток на начало',
         dataIndex: 'startBalance',
+        align: 'right',
     },
 
     {
         title: 'Приход',
         dataIndex: 'income',
+        align: 'right',
     },
     {
         title: 'Расход',
-        dataIndex: 'outcome',
+        render: ({ outcome }) => (outcome * -1).toString(),
+        align: 'right',
     },
     {
         title: 'Остаток',
         dataIndex: 'endBalance',
+        align: 'right',
     },
 ];
 
