@@ -10,7 +10,13 @@ export const waybillsApi = createApi({
     }),
     endpoints: builder => ({
         readWaybills: builder.query<Waybill[], void>({
-            query: () => `/`,
+            query: () => ({
+                url: `/`,
+                params: {
+                    startDate: '01/06/2022',
+                    endDate: '01/07/2022',
+                },
+            }),
         }),
     }),
 });

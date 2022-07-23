@@ -30,7 +30,7 @@ const columns: Array<DataColumn<Waybill>> = [
     },
     {
         title: 'Пользователь',
-        dataIndex: 'user',
+        render: ({ user }) => `${user.firstName} ${user.lastName}`,
     },
 ];
 
