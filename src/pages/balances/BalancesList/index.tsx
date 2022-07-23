@@ -16,6 +16,7 @@ export const BalancesList: React.FC = () => {
                 columns={columns}
                 loading={isFetching}
                 items={data}
+                hasDefaultColumns={false}
             />
         </Page>
     );
