@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Input } from 'antd';
 
 import { useReadProductsQuery, useDeleteProductMutation } from 'store/features';
 import { Page } from 'components/Page';
@@ -41,10 +40,6 @@ export const ProductsList: React.FC = () => {
                 onCreate={onCreate}
                 onEdit={onEdit}
                 onDelete={onDelete}
-                search={{
-                    filters: [<Input name='code' placeholder='Поиск' />],
-                    onSearch: setSearchQuery,
-                }}
             />
         </Page>
     );

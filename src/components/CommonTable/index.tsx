@@ -1,4 +1,4 @@
-import React, { useEffect, useState, cloneElement } from 'react';
+import React, { useState } from 'react';
 import { Button, Col, Row, Space, Table } from 'antd';
 import { PlusOutlined, SyncOutlined } from '@ant-design/icons';
 import type { ExpandableConfig } from 'antd/lib/table/interface';
@@ -21,10 +21,7 @@ type TProps<T extends BaseEntity> = {
     readonly loading: boolean;
     readonly expandedRowRenderer?: ExpandableConfig<T>;
 
-    readonly search?: {
-        filters: React.ReactElement[];
-        onSearch: (values: Record<string, unknown>) => void;
-    };
+    readonly children?: React.ReactElement;
 };
 
 export const CommonTable = <T extends BaseEntity>(props: TProps<T>) => {
@@ -32,9 +29,9 @@ export const CommonTable = <T extends BaseEntity>(props: TProps<T>) => {
         onEdit,
         onDelete,
         onCreate,
-        search,
         refetch,
         items,
+        children,
         columns,
         loading,
         expandedRowRenderer,
@@ -43,31 +40,10 @@ export const CommonTable = <T extends BaseEntity>(props: TProps<T>) => {
 
     const [filtersData, setFiltersData] = useState<Record<string, unknown>>();
 
-    const handleFilterChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const { target } = e;
-        setFiltersData(prev => ({
-            ...prev,
-            [target.name]: target.value,
-        }));
-    };
-
-    useEffect(() => {
-        if (search && filtersData) search.onSearch(filtersData);
-    }, [filtersData]);
-
     return (
         <React.Fragment>
-            <Row gutter={[24, 24]} justify={search ? 'space-between' : 'end'}>
-                {search && (
-                    <Col>
-                        {search.filters.map((filter, index) =>
-                            cloneElement(filter, {
-                                key: index,
-                                onChange: handleFilterChange,
-                            })
-                        )}
-                    </Col>
-                )}
+            <Row gutter={[24, 24]} justify={children ? 'space-between' : 'end'}>
+                <Col flex={1}>{children}</Col>
                 <Col>
                     <Space>
                         {onCreate && (

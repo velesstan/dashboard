@@ -9,13 +9,10 @@ export const waybillsApi = createApi({
         baseUrl: `${BASE_URL}/waybills`,
     }),
     endpoints: builder => ({
-        readWaybills: builder.query<Waybill[], void>({
-            query: () => ({
+        readWaybills: builder.query<Waybill[], Record<string, unknown>>({
+            query: query => ({
                 url: `/`,
-                params: {
-                    startDate: '2022-01-01',
-                    endDate: '2022-07-23',
-                },
+                params: query,
             }),
         }),
     }),
