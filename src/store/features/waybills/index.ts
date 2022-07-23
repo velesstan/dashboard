@@ -13,8 +13,8 @@ export const waybillsApi = createApi({
             query: () => ({
                 url: `/`,
                 params: {
-                    startDate: '01/06/2022',
-                    endDate: '01/07/2022',
+                    startDate: '2022-01-01',
+                    endDate: '2022-07-23',
                 },
             }),
         }),

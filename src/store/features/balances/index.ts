@@ -10,7 +10,13 @@ export const balancesApi = createApi({
     }),
     endpoints: builder => ({
         readBalances: builder.query<Balance[], void>({
-            query: () => `/`,
+            query: () => ({
+                url: `/`,
+                params: {
+                    startDate: '2022-06-23',
+                    endDate: '2022-07-23',
+                },
+            }),
         }),
     }),
 });
