@@ -6,7 +6,7 @@ import { getWaybillActionType } from 'utils';
 const columns: Array<DataColumn<Waybill>> = [
     {
         title: '#',
-        render: () => '',
+        dataIndex: ['serial'],
     },
     {
         title: 'Дата',

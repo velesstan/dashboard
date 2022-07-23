@@ -26,6 +26,7 @@ export type WaybillType = `${WaybillTypes}`;
 export type WaybillActionType = `${WaybillActionTypes}`;
 
 export interface Waybill extends BaseEntity {
+    readonly serial: number;
     readonly date: Date;
     readonly action: WaybillActionType;
     readonly user: User;
