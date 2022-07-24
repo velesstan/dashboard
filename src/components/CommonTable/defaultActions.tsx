@@ -21,6 +21,7 @@ const renderDefaultActions = <T extends BaseEntity>(
     return [
         {
             title: 'Действия',
+            width: '10%',
             render: entity => (
                 <React.Fragment>
                     <Space>
