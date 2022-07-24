@@ -1,5 +1,6 @@
-import React, { ChangeEvent, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Col, Input, Row, Select } from 'antd';
+import { Dayjs } from 'dayjs';
 
 import { useReadHoldersQuery, useReadWaybillsQuery } from 'store/features';
 import { Page } from 'components/Page';
@@ -13,15 +14,24 @@ export const WaybillsList: React.FC = () => {
     const [searchQuery, setSearchQuery] = useState<Record<string, unknown>>();
     const { data, isFetching, refetch } = useReadWaybillsQuery(searchQuery);
 
+    const [source, setSource] = useState<string>();
+    const [destination, setDestination] = useState<string>();
+    const [serial, setSerial] = useState<string>();
+    const [startDate, setStartDate] = useState<Dayjs>();
+    const [endDate, setEndDate] = useState<Dayjs>();
+
     const holders = useReadHoldersQuery().data || [];
 
-    const handleFilterChange = (e: ChangeEvent<HTMLInputElement>) => {
-        const { target } = e;
+    useEffect(() => {
         setSearchQuery(prev => ({
             ...prev,
-            [target.name]: target.value,
+            serial,
+            startDate: startDate?.format('YYYY-MM-DD'),
+            endDate: endDate?.format('YYYY-MM-DD'),
+            source,
+            destination,
         }));
-    };
+    }, [serial, startDate, endDate, source, destination]);
 
     return (
         <Page title='Накладные'>
@@ -64,24 +74,16 @@ export const WaybillsList: React.FC = () => {
                         <Input
                             name='serial'
                             placeholder='Номер накладной'
-                            onChange={handleFilterChange}
+                            onChange={({ target: { value } }) =>
+                                setSerial(value)
+                            }
                         />
                     </Col>
                     <Col>
                         <DatePicker.RangePicker
                             onChange={([startDate, endDate]) => {
-                                handleFilterChange({
-                                    target: {
-                                        name: 'startDate',
-                                        value: startDate.format('YYYY-MM-DD'),
-                                    },
-                                } as ChangeEvent<HTMLInputElement>);
-                                handleFilterChange({
-                                    target: {
-                                        name: 'endDate',
-                                        value: endDate.format('YYYY-MM-DD'),
-                                    },
-                                } as ChangeEvent<HTMLInputElement>);
+                                setStartDate(startDate);
+                                setEndDate(endDate);
                             }}
                         />
                     </Col>
@@ -93,14 +95,7 @@ export const WaybillsList: React.FC = () => {
                                 label: h.title,
                                 value: h._id,
                             }))}
-                            onChange={value =>
-                                handleFilterChange({
-                                    target: {
-                                        name: 'source',
-                                        value,
-                                    },
-                                } as ChangeEvent<HTMLInputElement>)
-                            }
+                            onChange={setSource}
                         />
                     </Col>
                     <Col flex={'auto'}>
@@ -111,14 +106,7 @@ export const WaybillsList: React.FC = () => {
                                 label: h.title,
                                 value: h._id,
                             }))}
-                            onChange={value =>
-                                handleFilterChange({
-                                    target: {
-                                        name: 'destination',
-                                        value,
-                                    },
-                                } as ChangeEvent<HTMLInputElement>)
-                            }
+                            onChange={setDestination}
                         />
                     </Col>
                 </Row>
