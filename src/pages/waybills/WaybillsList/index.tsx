@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Col, Input, Row, Select } from 'antd';
-import { Dayjs } from 'dayjs';
+import dayjs, { Dayjs } from 'dayjs';
 
 import { useReadHoldersQuery, useReadWaybillsQuery } from 'store/features';
 import { Page } from 'components/Page';
@@ -17,8 +17,10 @@ export const WaybillsList: React.FC = () => {
     const [source, setSource] = useState<string>();
     const [destination, setDestination] = useState<string>();
     const [serial, setSerial] = useState<string>();
-    const [startDate, setStartDate] = useState<Dayjs>();
-    const [endDate, setEndDate] = useState<Dayjs>();
+    const [startDate, setStartDate] = useState<Dayjs>(
+        dayjs().subtract(6, 'months')
+    );
+    const [endDate, setEndDate] = useState<Dayjs>(dayjs());
 
     const holders = useReadHoldersQuery().data || [];
 
@@ -81,6 +83,7 @@ export const WaybillsList: React.FC = () => {
                     </Col>
                     <Col>
                         <DatePicker.RangePicker
+                            value={[startDate, endDate]}
                             onChange={([startDate, endDate]) => {
                                 setStartDate(startDate);
                                 setEndDate(endDate);
