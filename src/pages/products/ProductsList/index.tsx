@@ -1,7 +1,11 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import { useReadProductsQuery, useDeleteProductMutation } from 'store/features';
+import {
+    useReadProductsQuery,
+    useDeleteProductMutation,
+    useUpdateProductMutation,
+} from 'store/features';
 import { Page } from 'components/Page';
 import { CommonTable } from 'components/CommonTable';
 import { Product } from 'interfaces';
@@ -13,6 +17,7 @@ export const ProductsList: React.FC = () => {
 
     const { data, isFetching, refetch } = useReadProductsQuery(searchQuery);
     const [deleteEntity] = useDeleteProductMutation();
+    const [updateEntity] = useUpdateProductMutation();
 
     const navigate = useNavigate();
 
@@ -30,6 +35,10 @@ export const ProductsList: React.FC = () => {
         deleteEntity(_id);
     };
 
+    const handleToggle = ({ _id, enabled }: Product): void => {
+        updateEntity({ _id, enabled: !enabled });
+    };
+
     return (
         <Page title='Продукты'>
             <CommonTable
@@ -40,6 +49,7 @@ export const ProductsList: React.FC = () => {
                 onCreate={onCreate}
                 onEdit={onEdit}
                 onDelete={onDelete}
+                onToggle={handleToggle}
             />
         </Page>
     );

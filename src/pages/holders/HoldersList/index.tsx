@@ -1,7 +1,11 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import { useReadHoldersQuery, useDeleteHolderMutation } from 'store/features';
+import {
+    useReadHoldersQuery,
+    useDeleteHolderMutation,
+    useUpdateHolderMutation,
+} from 'store/features';
 import { Page } from 'components/Page';
 import { CommonTable } from 'components/CommonTable';
 import { Holder } from 'interfaces';
@@ -11,6 +15,7 @@ import columns from './columns';
 export const HoldersList: React.FC = () => {
     const { data, isFetching, refetch } = useReadHoldersQuery();
     const [deleteEntity] = useDeleteHolderMutation();
+    const [updateEntity] = useUpdateHolderMutation();
 
     const navigate = useNavigate();
 
@@ -28,6 +33,10 @@ export const HoldersList: React.FC = () => {
         deleteEntity(entity._id);
     };
 
+    const handleToggle = ({ _id, enabled }: Holder): void => {
+        updateEntity({ _id, enabled: !enabled });
+    };
+
     return (
         <Page title='Склады и оптовики'>
             <CommonTable
@@ -38,6 +47,7 @@ export const HoldersList: React.FC = () => {
                 onEdit={onEdit}
                 onDelete={onDelete}
                 onCreate={onCreate}
+                onToggle={handleToggle}
             />
         </Page>
     );

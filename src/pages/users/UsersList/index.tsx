@@ -33,8 +33,8 @@ export const UsersList: React.FC = () => {
         deleteEntity(_id);
     };
 
-    const handleToggle = (entity: User): void => {
-        updateEntity({ ...entity, enabled: !entity.enabled });
+    const handleToggle = ({ _id, enabled }: User): void => {
+        updateEntity({ _id, enabled: !enabled });
     };
 
     return (
