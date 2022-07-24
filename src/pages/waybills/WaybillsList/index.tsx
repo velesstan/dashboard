@@ -35,10 +35,15 @@ export const WaybillsList: React.FC = () => {
         }));
     }, [serial, startDate, endDate, source, destination]);
 
+    const onCreate = () => {
+        void 0;
+    };
+
     return (
         <Page title='Накладные'>
             <CommonTable
                 refetch={refetch}
+                onCreate={onCreate}
                 columns={columns}
                 loading={isFetching}
                 items={data}
