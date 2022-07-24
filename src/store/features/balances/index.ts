@@ -9,13 +9,10 @@ export const balancesApi = createApi({
         baseUrl: `${BASE_URL}/balances`,
     }),
     endpoints: builder => ({
-        readBalances: builder.query<Balance[], void>({
-            query: () => ({
+        readBalances: builder.query<Balance[], Record<string, unknown>>({
+            query: query => ({
                 url: `/`,
-                params: {
-                    startDate: '2022-06-23',
-                    endDate: '2022-07-23',
-                },
+                params: query,
             }),
         }),
     }),
