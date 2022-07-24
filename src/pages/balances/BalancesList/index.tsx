@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Col, Input, Row, Select } from 'antd';
 import dayjs, { Dayjs } from 'dayjs';
+import { saveAs } from 'file-saver';
 
 import {
     useReadBalancesQuery,
@@ -10,11 +11,12 @@ import {
 import { Page } from 'components/Page';
 import { CommonTable } from 'components/CommonTable';
 import DatePicker from 'components/CommonDatePicker';
+import { BASE_URL } from 'config';
 
 import columns from './columns';
 
 export const BalancesList: React.FC = () => {
-    const [searchQuery, setSearchQuery] = useState<Record<string, unknown>>();
+    const [searchQuery, setSearchQuery] = useState<Record<string, string>>();
     const { data, isFetching, refetch } = useReadBalancesQuery(searchQuery);
 
     const [code, setCode] = useState<string>();
@@ -39,10 +41,20 @@ export const BalancesList: React.FC = () => {
         }));
     }, [code, startDate, endDate, holder, category]);
 
+    const handleBalanceExport = () => {
+        const query = new URLSearchParams();
+        Object.keys(searchQuery)
+            .filter(key => !!searchQuery[key])
+            .forEach(key => query.append(key, searchQuery[key]));
+        const uri = `${BASE_URL}/balances/export?${query.toString()}`;
+        saveAs(uri, 'Остатки.xlsx');
+    };
+
     return (
         <Page title='Накладные'>
             <CommonTable
                 refetch={refetch}
+                onExport={handleBalanceExport}
                 columns={columns}
                 loading={isFetching}
                 items={data}

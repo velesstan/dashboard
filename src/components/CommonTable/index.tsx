@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Button, Col, Row, Space, Table } from 'antd';
-import { PlusOutlined, SyncOutlined } from '@ant-design/icons';
+import { PlusOutlined, PrinterFilled, SyncOutlined } from '@ant-design/icons';
 import type { ExpandableConfig } from 'antd/lib/table/interface';
 
 import type { DataColumn, BaseEntity } from 'interfaces';
@@ -14,6 +14,7 @@ type TProps<T extends BaseEntity> = {
     readonly onEdit?: (entity: T) => void;
     readonly onDelete?: (entity: T) => void;
     readonly onCreate?: () => void;
+    readonly onExport?: () => void;
     readonly refetch: () => void;
     readonly items: Array<T>;
     readonly columns: Array<Omit<DataColumn<T>, 'dataIndex'>>;
@@ -29,6 +30,7 @@ export const CommonTable = <T extends BaseEntity>(props: TProps<T>) => {
         onEdit,
         onDelete,
         onCreate,
+        onExport,
         refetch,
         items,
         children,
@@ -37,8 +39,6 @@ export const CommonTable = <T extends BaseEntity>(props: TProps<T>) => {
         expandedRowRenderer,
         hasDefaultColumns = true,
     } = props;
-
-    const [filtersData, setFiltersData] = useState<Record<string, unknown>>();
 
     return (
         <React.Fragment>
@@ -52,6 +52,14 @@ export const CommonTable = <T extends BaseEntity>(props: TProps<T>) => {
                                 icon={<PlusOutlined />}
                             >
                                 Создать
+                            </Button>
+                        )}
+                        {onExport && (
+                            <Button
+                                onClick={() => onExport()}
+                                icon={<PrinterFilled />}
+                            >
+                                Экспорт
                             </Button>
                         )}
                         <Button
