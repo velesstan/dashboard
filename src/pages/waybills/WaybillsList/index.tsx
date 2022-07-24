@@ -2,10 +2,15 @@ import React, { useEffect, useState } from 'react';
 import { Col, Input, Row, Select } from 'antd';
 import dayjs, { Dayjs } from 'dayjs';
 
-import { useReadHoldersQuery, useReadWaybillsQuery } from 'store/features';
+import {
+    useReadHoldersQuery,
+    useReadWaybillsQuery,
+    useUpdateWaybillMutation,
+} from 'store/features';
 import { Page } from 'components/Page';
 import { CommonTable } from 'components/CommonTable';
 import DatePicker from 'components/CommonDatePicker';
+import { Waybill } from 'interfaces';
 
 import columns from './columns';
 import { TransactionsTable } from '../components/TransactionsTable';
@@ -13,6 +18,7 @@ import { TransactionsTable } from '../components/TransactionsTable';
 export const WaybillsList: React.FC = () => {
     const [searchQuery, setSearchQuery] = useState<Record<string, unknown>>();
     const { data, isFetching, refetch } = useReadWaybillsQuery(searchQuery);
+    const [updateEntity] = useUpdateWaybillMutation();
 
     const [source, setSource] = useState<string>();
     const [destination, setDestination] = useState<string>();
@@ -39,6 +45,14 @@ export const WaybillsList: React.FC = () => {
         void 0;
     };
 
+    const onDelete = () => {
+        void 0;
+    };
+
+    const handleToggle = ({ _id, enabled }: Waybill): void => {
+        updateEntity({ _id, enabled: !enabled });
+    };
+
     return (
         <Page title='Накладные'>
             <CommonTable
@@ -47,7 +61,8 @@ export const WaybillsList: React.FC = () => {
                 columns={columns}
                 loading={isFetching}
                 items={data}
-                hasDefaultColumns={false}
+                onDelete={onDelete}
+                onToggle={handleToggle}
                 expandedRowRenderer={{
                     expandedRowRender: ({ transactions }) => {
                         const incomeTransactions = transactions.filter(
