@@ -1,18 +1,19 @@
 import React from 'react';
 import { Button, Popconfirm, Space } from 'antd';
-import { DeleteOutlined, EditOutlined } from '@ant-design/icons';
+import { DeleteOutlined, EditOutlined, StopOutlined } from '@ant-design/icons';
 
 import type { DataColumn, BaseEntity } from 'interfaces';
 
 type DefaultActions<T> = {
     readonly onEdit?: (id: T) => void;
     readonly onDelete?: (id: T) => void;
+    readonly onToggle?: (id: T) => void;
 };
 
 const renderDefaultActions = <T extends BaseEntity>(
     actions: DefaultActions<T>
 ): Array<DataColumn<T>> => {
-    const { onEdit, onDelete } = actions;
+    const { onEdit, onDelete, onToggle } = actions;
 
     const hasActions = Object.values(actions).some(action => !!action);
 
@@ -31,6 +32,14 @@ const renderDefaultActions = <T extends BaseEntity>(
                                 type='text'
                                 icon={<EditOutlined />}
                                 onClick={() => onEdit(entity)}
+                            />
+                        )}
+                        {onToggle && (
+                            <Button
+                                shape='circle'
+                                type='text'
+                                icon={<StopOutlined />}
+                                onClick={() => onToggle(entity)}
                             />
                         )}
                         {onDelete && (

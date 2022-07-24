@@ -1,7 +1,11 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import { useReadUsersQuery, useDeleteUserMutation } from 'store/features';
+import {
+    useReadUsersQuery,
+    useDeleteUserMutation,
+    useUpdateUserMutation,
+} from 'store/features';
 import { Page } from 'components/Page';
 import { CommonTable } from 'components/CommonTable';
 import { User } from 'interfaces';
@@ -11,6 +15,7 @@ import columns from './columns';
 export const UsersList: React.FC = () => {
     const { data = [], isFetching, refetch } = useReadUsersQuery();
     const [deleteEntity] = useDeleteUserMutation();
+    const [updateEntity] = useUpdateUserMutation();
 
     const navigate = useNavigate();
 
@@ -28,6 +33,10 @@ export const UsersList: React.FC = () => {
         deleteEntity(_id);
     };
 
+    const handleToggle = (entity: User): void => {
+        updateEntity({ ...entity, enabled: !entity.enabled });
+    };
+
     return (
         <Page title='Пользователи'>
             <CommonTable
@@ -35,10 +44,10 @@ export const UsersList: React.FC = () => {
                 columns={columns}
                 loading={isFetching}
                 items={data}
-                hasDefaultColumns={false}
                 onEdit={onEdit}
                 onDelete={onDelete}
                 onCreate={onCreate}
+                onToggle={handleToggle}
             />
         </Page>
     );

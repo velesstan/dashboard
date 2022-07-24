@@ -14,6 +14,7 @@ type TProps<T extends BaseEntity> = {
     readonly onEdit?: (entity: T) => void;
     readonly onDelete?: (entity: T) => void;
     readonly onCreate?: () => void;
+    readonly onToggle?: (entity: T) => void;
     readonly onExport?: () => void;
     readonly refetch: () => void;
     readonly items: Array<T>;
@@ -30,6 +31,7 @@ export const CommonTable = <T extends BaseEntity>(props: TProps<T>) => {
         onEdit,
         onDelete,
         onCreate,
+        onToggle,
         onExport,
         refetch,
         items,
@@ -85,6 +87,7 @@ export const CommonTable = <T extends BaseEntity>(props: TProps<T>) => {
                                 renderDefaultActions({
                                     onEdit,
                                     onDelete,
+                                    onToggle,
                                 })
                             )
                             .map((columnProps, index) => (

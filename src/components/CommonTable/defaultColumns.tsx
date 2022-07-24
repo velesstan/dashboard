@@ -1,3 +1,7 @@
+import {
+    CheckCircleOutlined,
+    ExclamationCircleOutlined,
+} from '@ant-design/icons';
 import { Tag } from 'antd';
 import dayjs from 'dayjs';
 
@@ -6,11 +10,20 @@ import type { DataColumn, BaseEntity } from 'interfaces';
 const defaultColumns: Array<DataColumn<BaseEntity>> = [
     {
         title: 'Статус',
-        render: ({ enabled }) => (
-            <Tag color={enabled ? 'success' : 'warning'}>
-                {enabled ? 'Активно' : 'Инактивно'}
-            </Tag>
-        ),
+        render: ({ enabled }) => {
+            if (enabled)
+                return (
+                    <Tag icon={<CheckCircleOutlined />} color='success'>
+                        Активный
+                    </Tag>
+                );
+            return (
+                <Tag icon={<ExclamationCircleOutlined />} color='warning'>
+                    Неактивный
+                </Tag>
+            );
+        },
+
         width: 0,
     },
     {
