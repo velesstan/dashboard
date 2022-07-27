@@ -16,11 +16,11 @@ type TProps<T extends BaseEntity> = {
     readonly onCreate?: () => void;
     readonly onToggle?: (entity: T) => void;
     readonly onExport?: () => void;
-    readonly refetch: () => void;
+    readonly refetch?: () => void;
     readonly items: Array<T>;
     readonly columns: Array<Omit<DataColumn<T>, 'dataIndex'>>;
     readonly hasDefaultColumns?: boolean;
-    readonly loading: boolean;
+    readonly loading?: boolean;
     readonly expandedRowRenderer?: ExpandableConfig<T>;
 
     readonly children?: React.ReactElement;
@@ -64,14 +64,16 @@ export const CommonTable = <T extends BaseEntity>(props: TProps<T>) => {
                                 Экспорт
                             </Button>
                         )}
-                        <Button
-                            icon={<SyncOutlined />}
-                            loading={loading}
-                            onClick={refetch}
-                            type='primary'
-                        >
-                            Обновить
-                        </Button>
+                        {refetch && (
+                            <Button
+                                icon={<SyncOutlined />}
+                                loading={loading}
+                                onClick={refetch}
+                                type='primary'
+                            >
+                                Обновить
+                            </Button>
+                        )}
                     </Space>
                 </Col>
                 <Col span={24}>

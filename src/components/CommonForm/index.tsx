@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { Button, Col, Form, FormItemProps, Input, Row, Space } from 'antd';
-import { useForm } from 'antd/lib/form/Form';
+import { FormInstance, useForm } from 'antd/lib/form/Form';
 import { useNavigate } from 'react-router-dom';
 
 import type { BaseEntity } from 'interfaces';
@@ -14,12 +14,16 @@ type TProps<T> = {
             size?: number;
         }
     >;
+    readonly form?: FormInstance;
+    readonly children?: React.ReactElement;
     readonly transformEntity?: (entity: BaseEntity & T) => BaseEntity & unknown;
 };
 
 export const CommonForm = <T,>(props: TProps<T>) => {
     const {
         entity,
+        children,
+        form = useForm()[0],
         fields = [],
         onSave,
         transformEntity = entity => entity,
@@ -31,14 +35,12 @@ export const CommonForm = <T,>(props: TProps<T>) => {
         form.setFieldsValue({ ...entity, ...transformEntity(entity) });
     }, [entity]);
 
-    const [form] = useForm();
-
     const onAbort = (): void => {
         navigate(-1);
     };
 
     const onSubmit = (values: BaseEntity & T): void => {
-        onSave({ ...entity, ...values });
+        onSave && onSave({ ...entity, ...values });
     };
 
     return (
@@ -48,7 +50,7 @@ export const CommonForm = <T,>(props: TProps<T>) => {
             layout='vertical'
             onFinish={onSubmit}
         >
-            <Row gutter={24}>
+            <Row gutter={[24, 24]}>
                 {fields.map(({ component, size, ...fieldProps }, index) => (
                     <Col span={size || 8} key={index}>
                         <Form.Item {...fieldProps}>
@@ -56,6 +58,7 @@ export const CommonForm = <T,>(props: TProps<T>) => {
                         </Form.Item>
                     </Col>
                 ))}
+                {children && <Col span={24}>{children}</Col>}
                 <Col span={24}>
                     <Form.Item>
                         <Space>

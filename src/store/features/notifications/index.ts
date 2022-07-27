@@ -1,0 +1,1 @@
+export { notificationsSlice } from './slice';

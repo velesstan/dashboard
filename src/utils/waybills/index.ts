@@ -1,4 +1,4 @@
-import type { WaybillActionType, WaybillType } from 'interfaces';
+import { WaybillActionType, WaybillActionTypes, WaybillType } from 'interfaces';
 
 export const getWaybillActionType = (action: WaybillActionType): string => {
     const map: Record<WaybillActionType, string> = {
@@ -20,4 +20,16 @@ export const getWaybillType = (action: WaybillType): string => {
     };
 
     return map[action];
+};
+
+export const getWaybillTypesMap = (): Array<{
+    value: WaybillActionType;
+    label: string;
+}> => {
+    return Object.keys(WaybillActionTypes)
+        .map(key => key.toLowerCase())
+        .map((type: WaybillActionType) => ({
+            value: type,
+            label: getWaybillActionType(type),
+        }));
 };

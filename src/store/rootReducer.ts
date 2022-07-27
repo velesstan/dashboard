@@ -7,6 +7,7 @@ import {
     holdersApi,
     waybillsApi,
     balancesApi,
+    notificationsSlice,
 } from './features';
 import { rolesApi } from './features/roles';
 
@@ -18,6 +19,7 @@ const rootReducer = combineReducers({
     [waybillsApi.reducerPath]: waybillsApi.reducer,
     [balancesApi.reducerPath]: balancesApi.reducer,
     [rolesApi.reducerPath]: rolesApi.reducer,
+    notifications: notificationsSlice.reducer,
 });
 
 export default rootReducer;

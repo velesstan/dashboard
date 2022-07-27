@@ -10,6 +10,14 @@ export const waybillsApi = createApi({
     }),
     tagTypes: ['Waybill'],
     endpoints: builder => ({
+        createWaybill: builder.mutation<Waybill, Waybill>({
+            query: waybill => ({
+                url: `/`,
+                method: 'POST',
+                body: waybill,
+            }),
+            invalidatesTags: ['Waybill'],
+        }),
         readWaybills: builder.query<Waybill[], Record<string, unknown>>({
             query: query => ({
                 url: `/`,
@@ -25,7 +33,19 @@ export const waybillsApi = createApi({
             }),
             invalidatesTags: ['Waybill'],
         }),
+        deleteWaybill: builder.mutation<void, string>({
+            query: id => ({
+                url: `/${id}`,
+                method: 'DELETE',
+            }),
+            invalidatesTags: ['Waybill'],
+        }),
     }),
 });
 
-export const { useReadWaybillsQuery, useUpdateWaybillMutation } = waybillsApi;
+export const {
+    useCreateWaybillMutation,
+    useReadWaybillsQuery,
+    useUpdateWaybillMutation,
+    useDeleteWaybillMutation,
+} = waybillsApi;

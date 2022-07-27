@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { Col, Input, Row, Select } from 'antd';
 import dayjs, { Dayjs } from 'dayjs';
+import { useNavigate } from 'react-router-dom';
 
 import {
+    useDeleteWaybillMutation,
     useReadHoldersQuery,
     useReadWaybillsQuery,
     useUpdateWaybillMutation,
@@ -19,6 +21,7 @@ export const WaybillsList: React.FC = () => {
     const [searchQuery, setSearchQuery] = useState<Record<string, unknown>>();
     const { data, isFetching, refetch } = useReadWaybillsQuery(searchQuery);
     const [updateEntity] = useUpdateWaybillMutation();
+    const [deleteEntity] = useDeleteWaybillMutation();
 
     const [source, setSource] = useState<string>();
     const [destination, setDestination] = useState<string>();
@@ -29,6 +32,8 @@ export const WaybillsList: React.FC = () => {
     const [endDate, setEndDate] = useState<Dayjs>(dayjs());
 
     const holders = useReadHoldersQuery().data || [];
+
+    const navigate = useNavigate();
 
     useEffect(() => {
         setSearchQuery(prev => ({
@@ -41,12 +46,12 @@ export const WaybillsList: React.FC = () => {
         }));
     }, [serial, startDate, endDate, source, destination]);
 
-    const onCreate = () => {
-        void 0;
+    const onCreate = (): void => {
+        navigate(`create`);
     };
 
-    const onDelete = () => {
-        void 0;
+    const onDelete = (entity: Waybill) => {
+        deleteEntity(entity._id);
     };
 
     const handleToggle = ({ _id, enabled }: Waybill): void => {

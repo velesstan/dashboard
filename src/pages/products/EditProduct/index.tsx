@@ -10,24 +10,46 @@ import {
     useReadCategoriesQuery,
 } from 'store/features';
 import { CommonForm } from 'components/CommonForm';
+import { ProductPicker } from 'components/ProductPicker';
+import { useAppDispatch } from 'store';
+import { showNotification } from 'store/features/notifications/slice';
 
 export const EditProduct: React.FC = () => {
     const { state } = useLocation() as { state: { entity: Product } };
 
     const categories = useReadCategoriesQuery().data || [];
+    const [dependencies, setDependencies] = useState([]);
 
     const [createEntity] = useCreateProductMutation();
     const [updateEntity] = useUpdateProductMutation();
+
+    const dispatch = useAppDispatch();
 
     const [entity, setEntity] = useState<Product | null>(null);
 
     useEffect(() => {
         setEntity(state?.entity || null);
+        setDependencies(state?.entity.requires || []);
     }, [state]);
 
     const onSave = (entity: Product): void => {
+        entity = Object.assign(entity, { requires: dependencies });
+
         if (entity._id) {
-            updateEntity(entity);
+            updateEntity({
+                ...entity,
+                requires: dependencies.map(({ quantity, product }) => ({
+                    quantity,
+                    product,
+                })),
+            }).then(() => {
+                dispatch(
+                    showNotification({
+                        message: 'Успешно',
+                        description: 'Продукт успешно обновлён',
+                    })
+                );
+            });
         } else {
             createEntity(entity);
         }
@@ -77,7 +99,13 @@ export const EditProduct: React.FC = () => {
                         name: 'price_wholesale',
                     },
                 ]}
-            />
+            >
+                <ProductPicker
+                    title='Зависимости'
+                    items={dependencies}
+                    onChange={setDependencies}
+                />
+            </CommonForm>
         </Page>
     );
 };

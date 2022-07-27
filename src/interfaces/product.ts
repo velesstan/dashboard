@@ -8,4 +8,8 @@ export interface Product extends BaseEntity {
     readonly unit: string;
     readonly price_retail: number;
     readonly price_wholesale: number;
+    readonly requires: Array<{
+        product: Product;
+        quantity: number;
+    }>;
 }

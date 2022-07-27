@@ -1,3 +1,5 @@
+export { notificationsSlice } from './notifications';
+
 export * from './users';
 export * from './categories';
 export * from './products';

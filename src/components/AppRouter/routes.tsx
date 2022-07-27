@@ -11,6 +11,7 @@ import { EditUser } from 'pages/users/EditUser';
 import { EditHolder } from 'pages/holders/EditHolder';
 import { EditCategory } from 'pages/categories/EditCategory';
 import { EditProduct } from 'pages/products/EditProduct';
+import { EditWaybill } from 'pages/waybills/EditWaybill';
 
 export const routes: RouteObject[] = [
     {
@@ -37,11 +38,11 @@ export const routes: RouteObject[] = [
                         children: [
                             {
                                 path: '',
-                                element: <Navigate to='list' />,
+                                element: <WaybillsList />,
                             },
                             {
-                                path: 'list',
-                                element: <WaybillsList />,
+                                path: 'create',
+                                element: <EditWaybill />,
                             },
                         ],
                     },
